@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AutoNumber__c</fullName>
+    <description>Unique identifier for global company assets, tracking the year and month of creation.</description>
+    <displayFormat>ASSET-{YYYY}-{MM}-{00000}</displayFormat>
+    <externalId>false</externalId>
+    <inlineHelpText>This ID is generated automatically. Format: ASSET-YEAR-MONTH-NUMBER</inlineHelpText>
+    <label>AutoNumber</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

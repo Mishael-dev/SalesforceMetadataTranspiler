@@ -1,0 +1,27 @@
+{
+  "name": "salesforce-transpiler",
+  "version": "1.0.0",
+  "description": "Converts DB schema to Salesforce Metadata ZIP",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["salesforce", "metadata", "transpiler"],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.24.0",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "zod": "^4.3.4",
+    "fast-xml-parser": "^4.3.0"
+  }
+}

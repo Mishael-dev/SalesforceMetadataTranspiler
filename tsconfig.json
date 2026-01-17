@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    
+    /* Output Options */
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,          // Generates .d.ts files for main app autocomplete
+    "sourceMap": true,            // Allows debugging of .ts files in the browser/node
+    "removeComments": false,
+
+    /* Strict Type-Checking */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+
+    /* Module Resolution */
+    "esModuleInterop": true,      // Required for libraries like JSZip
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true          // Speeds up compilation by skipping library types
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
