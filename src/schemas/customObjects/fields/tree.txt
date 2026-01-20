@@ -1,0 +1,23 @@
+fields
+    ├── autoNumber.ts
+    ├── checkBox.ts
+    ├── currency.ts
+    ├── date.ts
+    ├── dateTime.ts
+    ├── email.ts
+    ├── encryptedTextArea.ts
+    ├── formula.ts
+    ├── geoLocation.ts
+    ├── index.ts
+    ├── longTextArea.ts
+    ├── lookUp.ts
+    ├── masterDetail.ts
+    ├── number.ts
+    ├── percent.ts
+    ├── phone.ts
+    ├── picklist.ts
+    ├── picklistMultiSelect.ts
+    ├── richTextArea.ts
+    ├── text.ts
+    ├── textArea.ts
+    └── time.ts
