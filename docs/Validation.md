@@ -21,3 +21,6 @@ Enforces hard Salesforce platform limits that are too complex for Zod, such as A
 ### Level 4: State & Conflict (The Pre-Flight)
 
 An optional layer that queries the target Salesforce Org via API to check for existing metadata conflicts, such as duplicate API na
+
+## Class Diagram and Configuration
+

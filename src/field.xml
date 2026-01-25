@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+  <description>Displays a human-readable status based on whether the asset has been assigned an ID.</description>
+  <externalId>false</externalId>
+  <fullName>Asset_Status_Label__c</fullName>
+  <label>Asset Status Label</label>
+  <trackHistory>false</trackHistory>
+  <type>Formula</type>
+</CustomField>

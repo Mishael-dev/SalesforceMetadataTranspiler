@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+  <description>Displays a human-readable status based on whether the asset has been assigned an ID.</description>
+  <externalId>false</externalId>
+  <formula>IF(NOT(ISBLANK(Asset_ID__c)), "ACTIVE: " &amp; Name, "INACTIVE")</formula>
+  <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+  <fullName>Asset_Status_Label__c</fullName>
+  <inlineHelpText>Shows ACTIVE or INACTIVE followed by the record name.</inlineHelpText>
+  <label>Asset Status Label</label>
+  <required>false</required>
+  <trackHistory>false</trackHistory>
+  <trackTrending>false</trackTrending>
+  <type>Formula</type>
+  <unique>false</unique>
+</CustomField>

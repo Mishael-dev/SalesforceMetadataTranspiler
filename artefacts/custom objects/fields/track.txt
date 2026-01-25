@@ -1,0 +1,22 @@
+1. AutoNumber ##
+2. checkbox #
+3. currency #
+4. date #
+5. date_time #
+6. email #
+7. Formula_Field ## 
+8. geolocation
+9. look_up ##
+10. master_detail #
+11. number #
+12. percent #
+13. phone #
+14. picklist #
+15. picklist_multi_select #
+16. text #
+17. text_area #
+18. text_area_encrypted #
+19. text_area_long #
+20. text_area_rich #
+21. time #
+22. url #
