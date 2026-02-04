@@ -15,7 +15,7 @@ export class StructuralValidator {
         path: err.path,
       }));
 
-      console.log(errors);
+      console.log("errors", errors);
       return { success: false as false, errors };
     }
 

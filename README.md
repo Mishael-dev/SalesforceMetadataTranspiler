@@ -186,11 +186,9 @@ Your JSON input consists of a **top-level object** describing the type of metada
 
 ```mermaid
 flowchart TD
-    A["JSON Input"] --> B["SchemaValidator 🛡️"]
-    B --> C["XMLGenerator 📄"]
-    C --> D["FileSystemGenerator 📁"]
-    D --> E["PackageBuilder 📦"]
-    E --> F["Deployment Package .zip 🎯"]
+    A((Metadata JSON)) --> B[Schema Validator]
+    B --> C[Metadata XML Transpiler]
+    C --> D((Generated XML Artifacts))
 ```
 
 *See [docs/Architecture.md](docs/Architecture.md) for detailed architecture.*

@@ -1,3 +1,4 @@
+import { MetadataEnvelope } from "../../schemas";
 export type ValidationLevel = 1 | 2 | 3 | 4;
 
 export interface ValidationError {
@@ -12,7 +13,7 @@ export type ValidationResult<T = unknown> =
   | {
       success: true;
       errors: ValidationError[];
-      normalizedData?: T;
+      normalizedData: MetadataEnvelope;
     }
   | {
       success: false;

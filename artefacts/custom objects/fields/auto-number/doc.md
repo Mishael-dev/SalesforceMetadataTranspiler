@@ -138,7 +138,7 @@ Failures at this level should be surfaced as **pre-deployment conflicts**, not s
 | `<displayFormat>`  | displayFormat  | LLM    | `{0000}`           |
 | `<startingNumber>` | startingNumber | LLM    | 1                  |
 | `<description>`    | description    | LLM    | Empty String       |
-| `<inlineHelpText>` | helpText       | LLM    | Empty String       |
+| `<inlineHelpText>` | inlineHelpText       | LLM    | Empty String       |
 | `<externalId>`     | externalId     | UI     | false              |
 | `<trackHistory>`   | trackHistory   | UI     | false              |
 | `<type>`           | type           | System | AutoNumber         |

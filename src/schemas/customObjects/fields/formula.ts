@@ -51,7 +51,7 @@ export const FormulaFieldSchema = z.object({
       "Internal documentation for admins explaining the logic behind this formula."
     ),
 
-  helpText: z
+  inlineHelpText: z
     .string()
     .optional()
     .describe(

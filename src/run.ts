@@ -1,115 +1,111 @@
-import { writeFileSync } from "fs";
+import { CustomObject } from "./xmlGenerator/types";
+import { XmlGenerator } from "./xmlGenerator/orchestrator";
+import { transpilerConfig } from "./stage";
+import { SalesforceMetadataTranspiler } from "./salesforceMetadataTranspiler";
+import { TranspilerConfig } from "./types/transpilerConfig";
+import { CustomObjectsSchema } from "./schemas/customObjects";
+import { createXmlGenerator } from "./xmlGenerator";
+import { MetadataEnvelopeSchema } from "./schemas";
 
-interface JsonField {
-  type: string;
-  fullName: string;
-  label: string;
-  description?: string;
-  inlineHelpText?: string;
-  helpText?: string;
-  required?: boolean;
-  unique?: boolean;
-  externalId?: boolean;
-  trackHistory?: boolean;
-  trackTrending?: boolean;
-}
+const orchestrator = createXmlGenerator();
 
-interface FormulaJsonField extends JsonField {
-  //fields specific to the formula field let's use any for now
-  blankOption: string;
-  formula: string;
-}
-
-interface GeneratedXml {
-  metadataType: "CustomObject" | "CustomField";
-  fullName: string;
-  parent?: string;
-  xml: string;
-}
-
-interface FieldXmlGenerator {
-  supports(field: JsonField): boolean;
-  generate(field: JsonField): GeneratedXml;
-}
-
-abstract class BaseFieldGenerator implements FieldXmlGenerator {
-  abstract supports(field: JsonField): boolean;
-  protected abstract buildTypeSpecificTags(field: JsonField): string;
-  protected buildSharedTags(field: JsonField) {
-    return [
-      this.xmlTag("fullName", field.fullName),
-      this.xmlTag("label", field.label),
-      this.xmlTag("type", field.type),
-      this.xmlTag("description", field.description),
-      this.xmlTag("inlineHelpText", field.helpText),
-      this.xmlTag("trackHistory", field.trackHistory),
-      this.xmlTag("trackTrending", field.trackTrending),
-      this.xmlTag("externalId", field.externalId),
-      this.xmlTag("required", field.required),
-    ].join("\n");
+export const schema = [
+  {
+    type: "CustomObject",
+    label: "Asset",
+    fullName: "Asset__c",
+    pluralLabel: "Assets",
+    description:
+      "Represents a company asset used for tracking inventory and lifecycle status.",
+    deploymentStatus: "Deployed",
+    allowInChatterGroups: true,
+    nameField: {
+      label: "Asset Name",
+      type: "Text",
+      trackHistory: false,
+    },
+    enableActivities: true,
+    enableBulkApi: true,
+    enableFeeds: false,
+    enableHistory: true,
+    enableLicensing: false,
+    enableReports: true,
+    enableSearch: true,
+    enableSharing: true,
+    enableStreamingApi: true,
+    visibility: "Public",
+    fields: [
+      {
+        type: "Formula",
+        label: "Asset Status Label",
+        fullName: "Asset_Status_Label__c",
+        formula: 'IF(NOT(ISBLANK(Asset_ID__c)), "ACTIVE: " & Name, "INACTIVE")',
+        blankOption: "BlankAsZero",
+        description:
+          "Displays a human-readable status based on whether the asset has been assigned an ID.",
+        helpText: "Shows ACTIVE or INACTIVE followed by the record name.",
+        externalId: false,
+        required: false,
+        unique: false,
+        trackHistory: false,
+      },
+    ],
   }
+] as const;
 
-  public generate(field: JsonField): GeneratedXml {
-    const body = `${this.buildSharedTags(field)} ${this.buildTypeSpecificTags(field)}`;
-    const xmlBody = `<?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-${body}
-</CustomField>`;
-    return {
-      metadataType: "CustomField",
-      fullName: field.fullName,
-      parent: "",
-      xml: xmlBody,
-    };
-  }
-
-  protected xmlTag(tag: string, value: any): string {
-    if (value === undefined || value === null) return "";
-    return `<${tag}>${this.escapeXml(String(value))}</${tag}>`;
-  }
-
-  protected escapeXml(value: string): string {
-    return value
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-}
-
-class FormulaXmlGenerator extends BaseFieldGenerator {
-  supports(field: JsonField): boolean {
-    return field.type.toLowerCase() === "formula";
-  }
-
-  protected buildTypeSpecificTags(field: FormulaJsonField): string {
-    return [
-      this.xmlTag("formula", field.formula),
-      this.xmlTag("formulaTreatBlanksAs", field.blankOption),
-      this.xmlTag("unique", field.unique),
-    ].join("\n");
-  }
-}
-
-const gen = new FormulaXmlGenerator();
-
-const field = {
-  type: "Formula",
-  label: "Asset Status Label",
-  fullName: "Asset_Status_Label__c",
-  returnType: "Text",
-  formula: 'IF(NOT(ISBLANK(Asset_ID__c)), "ACTIVE: " & Name, "INACTIVE")',
-  blankOption: "BlankAsZero",
+const payload: CustomObject = {
+  type: "CustomObject",
+  label: "Asset",
+  fullName: "Asset__c",
+  pluralLabel: "Assets",
   description:
-    "Displays a human-readable status based on whether the asset has been assigned an ID.",
-  helpText: "Shows ACTIVE or INACTIVE followed by the record name.",
-  externalId: false,
-  required: false,
-  unique: false,
-  trackHistory: false,
-  trackTrending: false
+    "Represents a company asset used for tracking inventory and lifecycle status.",
+  deploymentStatus: "Deployed",
+  allowInChatterGroups: true,
+  nameField: {
+    label: "Asset Name",
+    type: "Text",
+    trackHistory: false,
+  },
+  enableActivities: true,
+  enableBulkApi: true,
+  enableFeeds: false,
+  enableHistory: true,
+  enableLicensing: false,
+  enableReports: true,
+  enableSearch: true,
+  enableSharing: true,
+  enableStreamingApi: true,
+  visibility: "Public",
+  fields: [
+    {
+      type: "Formula",
+      label: "Asset Status Label",
+      fullName: "Asset_Status_Label__c",
+      formula: 'IF(NOT(ISBLANK(Asset_ID__c)), "ACTIVE: " & Name, "INACTIVE")',
+      blankOption: "BlankAsZero",
+      description:
+        "Displays a human-readable status based on whether the asset has been assigned an ID.",
+      helpText: "Shows ACTIVE or INACTIVE followed by the record name.",
+      externalId: false,
+      required: false,
+      unique: false,
+      trackHistory: false,
+    },
+  ],
 };
 
-const result = gen.generate(field);
+const transpiler = new SalesforceMetadataTranspiler(transpilerConfig);
 
-writeFileSync("field3.xml", result.xml, "utf8");
+async function transpileSchema() {
+  const result = await transpiler.transpile(schema);
+
+  console.log(result);
+}
+
+transpileSchema();
+
+// const output = orchestrator.generate(schema[0]);
+
+// console.log(output);
+

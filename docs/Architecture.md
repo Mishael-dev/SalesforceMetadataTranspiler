@@ -2,32 +2,43 @@
 
 This document describes the internal architecture, responsibilities, and data flow of the **Salesforce Metadata Transpiler**. It is intended for contributors and maintainers who want to understand *how* the system works and *where* to extend it safely.
 
+The transpiler converts **JSON metadata definitions** into Salesforce-compliant XML artifacts. It treats JSON as the **source of truth**, and XML as a **transient build artifact**.
+
 ---
 
 ## 🏗️ High-Level System Flow
 
 ```mermaid
 flowchart TD
-    A((JSON Input)) --> B[Schema Validator]
-    B --> C[XML Generator]
-    C --> D[FileSystem Generator]
-    D --> E[Package Builder]
-    E --> F((package.zip))
+    A((Metadata JSON)) --> B[Schema Validator]
+    B --> C[Metadata XML Transpiler]
+    C --> D((Generated XML Artifacts))
 ```
 
+> Note: Packaging into a ZIP and deployment are handled outside the transpiler.
+
+---
+
+## 🎯 Core Design Principles
+
+* **Single Responsibility** — The transpiler only generates XML
+* **Stateless Processing** — One JSON schema in, XML artifacts out
+* **Filesystem & Deployment Agnostic** — No paths, folders, or ZIPs are assumed
+* **Composable Output** — Each XML artifact is independently consumable
+* **Incremental Deploy Friendly** — Works with JSON diffs to regenerate only changed components
 
 ---
 
 ## 🔬 Detailed Pipeline Walkthrough
 
-This section illustrates how a single object definition flows through the core pipeline stages, including validation, hydration, XML generation, file path mapping, and packaging.
+### 1️⃣ Schema Validator
 
----
-
-### 1️⃣ SchemaValidator
+* *See ****[docs/Validation.md](./Validation.md)**** for details*
 
 **Role**
-Validates the incoming JSON against Zod schemas. Its most important responsibility is **hydration**: filling in mandatory Salesforce metadata fields that the user (or AI) may omit, ensuring downstream stages receive a complete and valid object.
+
+* Validates JSON metadata against schemas
+* Hydrates missing mandatory Salesforce fields
 
 **Input (Raw JSON)**
 
@@ -41,7 +52,7 @@ Validates the incoming JSON against Zod schemas. Its most important responsibili
 }
 ```
 
-**Output (Validated & Hydrated Object)**
+**Output (Validated & Hydrated JSON)**
 
 ```json
 {
@@ -63,12 +74,17 @@ Validates the incoming JSON against Zod schemas. Its most important responsibili
 
 ---
 
-### 2️⃣ XML Generator
+### 2️⃣ Metadata XML Transpiler
+
+* *See ****[docs/XmlGeneration.md](./XmlGeneration.md)**** for details*
 
 **Role**
-Converts hydrated JSON objects into Salesforce-compliant XML strings. Handles **tag ordering, namespaces, and metadata-specific formatting**. Does not know anything about file paths or folder structures.
 
-**Input (Hydrated Object)**
+* Converts hydrated JSON into Salesforce XML artifacts
+* Processes one JSON schema at a time
+* Returns a **flat list of XML artifacts**
+
+**Input (Hydrated JSON)**
 
 ```json
 {
@@ -81,7 +97,7 @@ Converts hydrated JSON objects into Salesforce-compliant XML strings. Handles **
 }
 ```
 
-**Output (Metadata XML Objects)**
+**Output (Generated XML Artifacts)**
 
 ```json
 [
@@ -99,68 +115,4 @@ Converts hydrated JSON objects into Salesforce-compliant XML strings. Handles **
 ]
 ```
 
----
-
-### 3️⃣ FileSystem Generator
-
-**Role**
-Takes the XML objects from the XML Generator and determines **the correct Salesforce file paths**. Produces a virtual file system array with `path` + `content` ready for packaging. This layer **does not generate XML**.
-
-**Input (Metadata XML Objects)**
-
-```json
-[
-  {
-    "metadataType": "CustomObject",
-    "apiName": "Vehicle__c",
-    "xml": "<CustomObject>...</CustomObject>"
-  },
-  {
-    "metadataType": "CustomField",
-    "parent": "Vehicle__c",
-    "apiName": "VIN__c",
-    "xml": "<CustomField>...</CustomField>"
-  }
-]
-```
-
-**Output (File Mapping)**
-
-```ts
-[
-  {
-    path: "objects/Vehicle__c/Vehicle__c.object-meta.xml",
-    content: "<CustomObject xmlns=\"...\">...</CustomObject>"
-  },
-  {
-    path: "objects/Vehicle__c/fields/VIN__c.field-meta.xml",
-    content: "<CustomField>...</CustomField>"
-  }
-]
-```
-
----
-
-### 4️⃣ Package Builder
-
-**Role**
-Scans the list of file paths returned by the FileSystem Generator, generates the `package.xml` manifest, and compresses the entire structure into a deployable ZIP archive.
-
-**Input (File Mapping)**
-```ts
-[
-  {
-    path: "objects/Vehicle__c/Vehicle__c.object-meta.xml",
-    content: "<CustomObject xmlns=\"...\">...</CustomObject>"
-  },
-  {
-    path: "objects/Vehicle__c/fields/VIN__c.field-meta.xml",
-    content: "<CustomField>...</CustomField>"
-  }
-]
-```
-
-**Output (Deployment Package)**
-`deployable_package.zip` — containing the complete Salesforce-compatible folder structure and deployment manifest.
-
----
+## &#x20;

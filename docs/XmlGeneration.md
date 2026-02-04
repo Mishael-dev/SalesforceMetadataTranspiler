@@ -1,4 +1,4 @@
-# XML Field Generator – Documentation
+# XML Field Generation – Documentation
 
 ## Purpose
 
