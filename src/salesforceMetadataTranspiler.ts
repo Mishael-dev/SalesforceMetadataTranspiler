@@ -31,12 +31,12 @@ class SalesforceMetadataTranspiler {
       return [];
     }
 
-    const outputs = validationResult.normalizedData?.map((item) => {
+    const outputs = validationResult.normalizedData?.flatMap((item) => {
       const result = this.xmlGenerator.generate(item);
       return result;
     });
 
-    return outputs[0];
+    return outputs;
   }
 }
 

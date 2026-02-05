@@ -18,6 +18,47 @@ export interface FormulaField extends BaseJsonField {
   blankOption?: string;
 }
 
+export interface LookupField extends BaseJsonField {
+  type: "Lookup";
+  referenceTo: string;
+  relationshipLabel: string;
+  relationshipName: string;
+  deleteConstraint?: string;
+}
+
+export interface MasterDetailField extends BaseJsonField {
+  type: "MasterDetail";
+  referenceTo: string;
+  relationshipLabel: string;
+  relationshipName: string;
+  relationshipOrder?: number;
+  reparentableMasterDetail?: boolean;
+  writeRequiresMasterRead?: boolean;
+}
+
+export interface PicklistValue {
+  fullName: string;
+  label: string;
+  default: boolean;
+}
+
+export interface ValueSet {
+  restricted: boolean;
+  sorted?: boolean;
+  values: PicklistValue[];
+}
+
+export interface PicklistField extends BaseJsonField {
+  type: "Picklist";
+  valueSet: ValueSet;
+}
+
+export interface MultiselectPicklistField extends BaseJsonField {
+  type: "MultiselectPicklist";
+  valueSet: ValueSet;
+  visibleLines?: number;
+}
+
 export interface TextField extends BaseJsonField {
   type: "Text";
   length?: number;
