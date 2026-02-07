@@ -114,4 +114,3 @@ export interface GeneratedXml {
 export interface GenerationContext {
   parentFullName?: string;
 }
-

@@ -14,6 +14,7 @@ export class TextFieldGenerator extends BaseFieldGenerator implements AtomicGene
 
   generate(field: TextField, context: GenerationContext): GeneratedXml {
     const fullName = this.buildFullName(field.fullName, context);
+    const parentFullName = context.parentFullName
 
     const tags = [
       ...this.buildSharedTags(field),
@@ -25,6 +26,7 @@ export class TextFieldGenerator extends BaseFieldGenerator implements AtomicGene
     return {
       metadataType: "CustomField",
       fullName,
+      parentFullName,
       xml,
     };
   }

@@ -17,7 +17,10 @@ export abstract class BaseFieldGenerator {
     ];
   }
 
-  protected buildFullName(fieldName: string, context: GenerationContext): string {
+  protected buildFullName(
+    fieldName: string,
+    context: GenerationContext,
+  ): string {
     return context.parentFullName
       ? `${context.parentFullName}.${fieldName}`
       : fieldName;
@@ -25,10 +28,9 @@ export abstract class BaseFieldGenerator {
 
   protected buildXmlFromTags(tags: string[]): string {
     const body = tags.filter((tag) => tag !== "").join("\n    ");
-    return XmlUtils.buildXmlDocument(
-      "CustomField",
-      "http://soap.sforce.com/2006/04/metadata",
-      `    ${body}`,
+    return XmlUtils.buildFieldXmlDocument(
+      "fields",
+      `${body}`,
     );
   }
 }

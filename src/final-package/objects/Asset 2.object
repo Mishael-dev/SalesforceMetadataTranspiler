@@ -1,0 +1,276 @@
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+  <deploymentStatus>Deployed</deploymentStatus>
+  <description>Represents hardware devices assigned to employees or departments.</description>
+  <label>Device</label>
+  <pluralLabel>Devices</pluralLabel>
+  <nameField>
+    <label>Device Name</label>
+    <type>Text</type>
+    <trackHistory>false</trackHistory>
+  </nameField>
+  <allowInChatterGroups>true</allowInChatterGroups>
+  <enableActivities>true</enableActivities>
+  <enableBulkApi>true</enableBulkApi>
+  <enableFeeds>false</enableFeeds>
+  <enableHistory>true</enableHistory>
+  <enableLicensing>false</enableLicensing>
+  <enableReports>true</enableReports>
+  <enableSearch>true</enableSearch>
+  <enableSharing>true</enableSharing>
+  <enableStreamingApi>true</enableStreamingApi>
+  <visibility>Public</visibility>
+  <fields>
+    <fullName>Device_Serial__c</fullName>
+    <label>Device Serial Number</label>
+    <type>AutoNumber</type>
+    <description>System-generated serial number for internal tracking.</description>
+    <trackHistory>false</trackHistory>
+    <externalId>false</externalId>
+    <displayFormat>DEV-{000000}</displayFormat>
+    <startingNumber>1</startingNumber>
+  </fields>
+  <fields>
+    <fullName>Warranty_Check__c</fullName>
+    <label>Device Warranty Check</label>
+    <type>Formula</type>
+    <description>Determines warranty status based on the device name.</description>
+    <trackHistory>false</trackHistory>
+    <externalId>false</externalId>
+    <required>false</required>
+    <unique>false</unique>
+    <formula>IF(CONTAINS(Name, &quot;Refurbished&quot;), &quot;Limited Warranty&quot;, &quot;Full Warranty&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+  </fields>
+  <fields>
+    <fullName>Active__c</fullName>
+    <label>Active</label>
+    <type>Checkbox</type>
+    <description>Indicates if the record is active</description>
+    <trackHistory>false</trackHistory>
+    <defaultValue>true</defaultValue>
+  </fields>
+  <fields>
+    <fullName>currency__c</fullName>
+    <label>currency</label>
+    <type>Currency</type>
+    <description>This field stores the transaction currency</description>
+    <required>true</required>
+    <defaultValue>1234.56</defaultValue>
+    <precision>14</precision>
+    <scale>4</scale>
+  </fields>
+  <fields>
+    <fullName>date__c</fullName>
+    <label>Date</label>
+    <type>Date</type>
+    <description>This is the main date field for records</description>
+    <required>true</required>
+    <defaultValue>DATE(2026,1,19)</defaultValue>
+  </fields>
+  <fields>
+    <fullName>date_time__c</fullName>
+    <label>Date Time</label>
+    <type>DateTime</type>
+    <description>This field stores the date and time of the event</description>
+    <required>false</required>
+    <defaultValue>NOW()</defaultValue>
+  </fields>
+  <fields>
+    <fullName>email__c</fullName>
+    <label>Email</label>
+    <type>Email</type>
+    <description>Primary email address of the contact</description>
+    <externalId>false</externalId>
+    <required>true</required>
+    <unique>true</unique>
+    <caseSensitive>true</caseSensitive>
+  </fields>
+  <fields>
+    <fullName>geolocation__c</fullName>
+    <label>Geolocation</label>
+    <type>Location</type>
+    <description>Stores the geolocation coordinates</description>
+    <required>false</required>
+    <displayLocationInDecimal>true</displayLocationInDecimal>
+    <scale>6</scale>
+  </fields>
+  <fields>
+    <fullName>Lookup_Field__c</fullName>
+    <label>Kitchen Sink Reference</label>
+    <type>Lookup</type>
+    <description>This is the description for the lookup field</description>
+    <required>false</required>
+    <referenceTo>Kitchen_Sink__c</referenceTo>
+    <relationshipLabel>Kitchen Sinks</relationshipLabel>
+    <relationshipName>Kitchen_Sinks</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+  </fields>
+  <fields>
+    <fullName>master_detail__c</fullName>
+    <label>Master Detail</label>
+    <type>MasterDetail</type>
+    <description>master detail description</description>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Kitchen Sinks</relationshipLabel>
+    <relationshipName>Kitchen_Sinks</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+  </fields>
+  <fields>
+    <fullName>number__c</fullName>
+    <label>Number Field</label>
+    <type>Number</type>
+    <description>number description</description>
+    <required>false</required>
+    <unique>false</unique>
+    <precision>14</precision>
+    <scale>2</scale>
+    <isAIPredictionField>true</isAIPredictionField>
+  </fields>
+  <fields>
+    <fullName>percent__c</fullName>
+    <label>Percent Field</label>
+    <type>Percent</type>
+    <description>percent description</description>
+    <required>false</required>
+    <precision>14</precision>
+    <scale>2</scale>
+  </fields>
+  <fields>
+    <fullName>phone__c</fullName>
+    <label>Phone</label>
+    <type>Phone</type>
+    <description>Phone number of the contact</description>
+    <required>false</required>
+  </fields>
+  <fields>
+    <fullName>picklist__c</fullName>
+    <label>Picklist Field</label>
+    <type>Picklist</type>
+    <description>picklist description</description>
+    <required>false</required>
+    <valueSet>
+      <restricted>true</restricted>
+      <valueSetDefinition>
+        <sorted>false</sorted>
+        <value>
+          <fullName>value 1</fullName>
+          <default>false</default>
+          <label>value 1</label>
+        </value>
+        <value>
+          <fullName>value 2</fullName>
+          <default>false</default>
+          <label>value 2</label>
+        </value>
+        <value>
+          <fullName>value 3</fullName>
+          <default>false</default>
+          <label>value 3</label>
+        </value>
+      </valueSetDefinition>
+    </valueSet>
+  </fields>
+  <fields>
+    <fullName>picklist_multi_select__c</fullName>
+    <label>Multiselect Picklist</label>
+    <type>MultiselectPicklist</type>
+    <description>picklist description</description>
+    <trackHistory>false</trackHistory>
+    <required>false</required>
+    <valueSet>
+      <restricted>true</restricted>
+      <valueSetDefinition>
+        <sorted>false</sorted>
+        <value>
+          <fullName>value 1</fullName>
+          <default>false</default>
+          <label>value 1</label>
+        </value>
+        <value>
+          <fullName>value 2</fullName>
+          <default>false</default>
+          <label>value 2</label>
+        </value>
+        <value>
+          <fullName>value 3</fullName>
+          <default>false</default>
+          <label>value 3</label>
+        </value>
+      </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+  </fields>
+  <fields>
+    <fullName>text__c</fullName>
+    <label>Text Field</label>
+    <type>Text</type>
+    <description>text description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <externalId>false</externalId>
+    <required>false</required>
+    <unique>false</unique>
+    <length>20</length>
+  </fields>
+  <fields>
+    <fullName>text_area__c</fullName>
+    <label>Text Area Field</label>
+    <type>TextArea</type>
+    <description>text area description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <required>false</required>
+  </fields>
+  <fields>
+    <fullName>text_area_encrypted__c</fullName>
+    <label>Encrypted Text Area</label>
+    <type>EncryptedText</type>
+    <description>text area encrypted description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <required>false</required>
+    <length>12</length>
+    <maskChar>asterisk</maskChar>
+    <maskType>ssn</maskType>
+  </fields>
+  <fields>
+    <fullName>text_area_long__c</fullName>
+    <label>Long Text Area</label>
+    <type>LongTextArea</type>
+    <description>text area long description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <length>32768</length>
+    <visibleLines>3</visibleLines>
+  </fields>
+  <fields>
+    <fullName>text_area_rich__c</fullName>
+    <label>Rich Text Area</label>
+    <type>Html</type>
+    <description>text area rich description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <length>32768</length>
+    <visibleLines>25</visibleLines>
+  </fields>
+  <fields>
+    <fullName>time__c</fullName>
+    <label>Time Field</label>
+    <type>Time</type>
+    <description>time description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <required>false</required>
+  </fields>
+  <fields>
+    <fullName>url__c</fullName>
+    <label>Website URL</label>
+    <type>Url</type>
+    <description>url description</description>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <required>false</required>
+  </fields>
+</CustomObject>

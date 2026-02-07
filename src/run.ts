@@ -1,4 +1,5 @@
 import { SalesforceMetadataTranspiler } from "./salesforceMetadataTranspiler";
+import { PackageBuilder } from "./packageBuilder/PackageBuilder";
 
 export const transpilerConfig = {
   apiVersion: "v65.0", // Required Salesforce API version
@@ -31,7 +32,33 @@ export const schema = [
       enableSharing: true,
       enableStreamingApi: true,
       visibility: "Public",
-      fields: []
+      fields: [{
+          type: "Formula",
+          label: "Device Warranty Check",
+          fullName: "Warranty_Check__c",
+          returnType: "Text",
+          formula:
+            'IF(CONTAINS(Name, "Refurbished"), "Limited Warranty", "Full Warranty")',
+          blankOption: "BlankAsBlank",
+          description: "Determines warranty status based on the device name.",
+          helpText:
+            "Automatically flags warranty type based on whether the name contains 'Refurbished'.",
+          externalId: false,
+          required: false,
+          unique: false,
+          trackHistory: false,
+        },
+        {
+          type: "Checkbox",
+          label: "Active",
+          fullName: "Active__c",
+          defaultValue: true,
+          description: "Indicates if the record is active",
+          helpText: "Check this box if the record is currently active",
+          trackHistory: false,
+          required: false,
+          externalId: false,
+        },]
     },
     {
       type: "CustomObject",
@@ -332,9 +359,22 @@ export const schema = [
 const transpiler = new SalesforceMetadataTranspiler(transpilerConfig);
 
 async function transpileSchema() {
-  const result = await transpiler.transpile(schema);
+  const generatedXml = await transpiler.transpile(schema);
 
-  console.log(result);
+  console.log(generatedXml);
+
+  const builder = new PackageBuilder({
+        outputDirectory: './final-package',
+        outputMode: 'directory'
+    });
+
+    const result = await builder.build(generatedXml);
+
+    if (result.success) {
+        console.log('Package built successfully!');
+    } else {
+        console.error('Failed to build package:', result.errors);
+    }
 }
 
 transpileSchema();

@@ -13,6 +13,16 @@ export class XmlUtils {
     return `<${tag}>${this.escapeXml(String(value))}</${tag}>`;
   }
 
+  static buildFieldXmlDocument(
+    rootTag: string,
+    body: string,
+  ): string {
+    return `
+<${rootTag}>
+${body}
+</${rootTag}>`;
+  }
+
   static buildXmlDocument(
     rootTag: string,
     namespace: string,
