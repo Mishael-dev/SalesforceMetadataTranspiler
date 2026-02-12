@@ -299,6 +299,8 @@ Process Children Recursively
 Output: GeneratedXml[]
 ```
 
+* *See ****[XmlGenerator/index.ts](../src/xmlGenerator/index.ts)**** for details*
+
 ---
 
 ## 3. Core Components

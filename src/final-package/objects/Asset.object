@@ -19,16 +19,18 @@
   <enableSharing>true</enableSharing>
   <enableStreamingApi>true</enableStreamingApi>
   <visibility>Public</visibility>
+  <externalSharingModel>ReadWrite</externalSharingModel>
+  <sharingModel>ReadWrite</sharingModel>
   <fields>
     <fullName>Warranty_Check__c</fullName>
     <label>Device Warranty Check</label>
-    <type>Formula</type>
     <description>Determines warranty status based on the device name.</description>
     <trackHistory>false</trackHistory>
     <externalId>false</externalId>
     <required>false</required>
     <unique>false</unique>
     <formula>IF(CONTAINS(Name, &quot;Refurbished&quot;), &quot;Limited Warranty&quot;, &quot;Full Warranty&quot;)</formula>
+    <type>Text</type>
     <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
   </fields>
   <fields>

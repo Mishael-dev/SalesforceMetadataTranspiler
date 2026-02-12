@@ -55,6 +55,8 @@ export class CustomObjectGenerator implements AtomicGenerator<CustomObject> {
       XmlUtils.xmlTag("enableSharing", obj.enableSharing),
       XmlUtils.xmlTag("enableStreamingApi", obj.enableStreamingApi),
       XmlUtils.xmlTag("visibility", obj.visibility),
+      XmlUtils.xmlTag("externalSharingModel", obj.externalSharingModel),
+      XmlUtils.xmlTag("sharingModel", obj.sharingModel),
     ];
 
     return tags.filter((tag) => tag !== "").join("\n    ");

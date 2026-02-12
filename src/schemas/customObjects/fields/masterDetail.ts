@@ -99,5 +99,6 @@ export const MasterDetailFieldSchema = z
       });
     }
 
+
     // relationshipName must be unique per object (cannot validate fully here, but we document)
   });

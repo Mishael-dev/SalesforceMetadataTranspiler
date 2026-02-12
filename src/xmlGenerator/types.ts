@@ -16,6 +16,7 @@ export interface FormulaField extends BaseJsonField {
   type: "Formula";
   formula: string;
   blankOption?: string;
+  returnType: string
 }
 
 export interface LookupField extends BaseJsonField {
@@ -70,7 +71,14 @@ export interface NumberField extends BaseJsonField {
   scale?: number;
 }
 
-export type JsonField = FormulaField | TextField | NumberField;
+export interface SummaryField extends BaseJsonField {
+  type: "Summary";
+  summarizedField: string;
+  summaryForeignKey: string;
+  summaryOperation: "count" | "sum" | "min" | "max" | "avg";
+}
+
+export type JsonField = FormulaField | TextField | NumberField | SummaryField;
 
 export interface NameField {
   label: string;
@@ -97,6 +105,8 @@ export interface CustomObject {
   enableSharing?: boolean;
   enableStreamingApi?: boolean;
   visibility?: string;
+  sharingModel?: string;
+  externalSharingModel?: string;
   fields?: JsonField[];
 }
 

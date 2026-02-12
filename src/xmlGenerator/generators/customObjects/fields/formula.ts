@@ -5,7 +5,10 @@ import { GenerationContext } from "../../../types";
 import { XmlUtils } from "../../../utils/xmlUtils";
 import { GeneratedXml } from "../../../types";
 
-export class FormulaFieldGenerator extends BaseFieldGenerator implements AtomicGenerator<FormulaField> {
+export class FormulaFieldGenerator
+  extends BaseFieldGenerator
+  implements AtomicGenerator<FormulaField>
+{
   readonly priority = 20;
 
   supports(data: any): data is FormulaField {
@@ -14,11 +17,20 @@ export class FormulaFieldGenerator extends BaseFieldGenerator implements AtomicG
 
   generate(field: FormulaField, context: GenerationContext): GeneratedXml {
     const fullName = this.buildFullName(field.fullName, context);
-    const parentFullName = context.parentFullName
+    const parentFullName = context.parentFullName;
+
+    // 1. Get shared tags (which likely contains <type>Formula</type>)
+    const sharedTags = this.buildSharedTags(field);
+
+    // 2. Filter out the incorrect "type" tag
+    const filteredSharedTags = sharedTags.filter(
+      (tag) => !tag.includes("<type>"),
+    );
 
     const tags = [
-      ...this.buildSharedTags(field),
+      ...filteredSharedTags,
       XmlUtils.xmlTag("formula", field.formula),
+      XmlUtils.xmlTag("type", field.returnType),
       XmlUtils.xmlTag("formulaTreatBlanksAs", field.blankOption),
     ];
 

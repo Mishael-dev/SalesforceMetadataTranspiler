@@ -3,9 +3,10 @@ import { z } from "zod";
 export const ObjectSchema = z.object({
   // --- 1. Core Object Configuration (Required from LLM) ---
   fullName: z
-    .string()
-    .min(1, "Full Name is required")
-    .describe("The API name of the object (e.g., 'Asset__c')."),
+  .string()
+  .min(1, "Full Name is required")
+  .regex(/__c$/, "Object Full Name must end with '__c'")
+  .describe("The API name of the object (e.g., 'Asset__c')."),
 
   label: z
     .string()
@@ -134,5 +135,17 @@ export const ObjectSchema = z.object({
     .default("Public")
     .describe(
       "Determines if the object is 'Public' (visible to all) or 'Protected' (hidden within a managed package).",
+    ),
+  sharingModel: z
+    .enum(["Read", "ReadWrite", "Private", "ControlledByParent"])
+    .default("ReadWrite")
+    .describe(
+      "Sets the internal organization-wide default (OWD) sharing access level for the object's records.",
+    ),
+  externalSharingModel: z
+    .enum(["Read", "ReadWrite", "Private", "ControlledByParent"])
+    .default("ReadWrite")
+    .describe(
+      "Sets the external organization-wide default (OWD) sharing access level for guest or external users.",
     ),
 });
