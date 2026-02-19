@@ -1,3 +1,4 @@
+import { MetadataEnvelope } from "../../schemas";
 export type ValidationLevel = 1 | 2 | 3 | 4;
 export interface ValidationError {
     level: ValidationLevel;
@@ -7,9 +8,10 @@ export interface ValidationError {
 export type ValidationResult<T = unknown> = {
     success: true;
     errors: ValidationError[];
-    normalizedData?: T;
+    normalizedData: MetadataEnvelope;
 } | {
     success: false;
     errors: ValidationError[];
     normalizedData?: never;
 };
+//# sourceMappingURL=validationResult.d.ts.map

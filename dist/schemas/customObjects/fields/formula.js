@@ -1,18 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FormulaFieldSchema = void 0;
-const zod_1 = require("zod");
-exports.FormulaFieldSchema = zod_1.z.object({
-    type: zod_1.z
+import { z } from "zod";
+export const FormulaFieldSchema = z.object({
+    type: z
         .literal("Formula")
         .describe("The Salesforce metadata type identifier for this field."),
-    label: zod_1.z
+    label: z
         .string()
         .describe("The user-friendly name of the formula field seen in the Salesforce UI."),
-    fullName: zod_1.z
+    fullName: z
         .string()
         .describe("The unique API name for the field. Must end with '__c' (e.g., 'Formula_Field__c')."),
-    returnType: zod_1.z
+    returnType: z
         .enum([
         "Checkbox",
         "Currency",
@@ -25,36 +22,35 @@ exports.FormulaFieldSchema = zod_1.z.object({
     ])
         .default("Text")
         .describe("The data type returned by the formula calculation."),
-    formula: zod_1.z
+    formula: z
         .string()
         .describe("The actual logic of the formula. Note: Use standard Salesforce formula syntax."),
-    blankOption: zod_1.z
+    blankOption: z
         .enum(["BlankAsBlank", "BlankAsZero"])
         .default("BlankAsZero")
         .describe("Determines how the formula engine handles empty or null fields in the calculation."),
-    description: zod_1.z
+    description: z
         .string()
         .optional()
         .describe("Internal documentation for admins explaining the logic behind this formula."),
-    helpText: zod_1.z
+    inlineHelpText: z
         .string()
         .optional()
         .describe("The help bubble text that explains the calculated value to end-users."),
-    externalId: zod_1.z
+    externalId: z
         .boolean()
         .default(false)
         .describe("Indicates whether this field can be used as a unique identifier from an external system."),
-    required: zod_1.z
+    required: z
         .boolean()
         .default(false)
         .describe("Whether this field is required (though formula fields are generally read-only)."),
-    unique: zod_1.z
+    unique: z
         .boolean()
         .default(false)
         .describe("Whether the calculated value must be unique across all records."),
-    trackHistory: zod_1.z
+    trackHistory: z
         .boolean()
         .default(false)
         .describe("If true, Salesforce tracks changes to this field in the History related list."),
 });
-//# sourceMappingURL=formula.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"ManifestGenerator.d.ts","sourceRoot":"","sources":["../../src/packageBuilder/ManifestGenerator.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,uBAAuB,CAAC;AAErD,qBAAa,iBAAiB;IAG1B,OAAO,CAAC,WAAW,CAMjB;IAEK,QAAQ,CAAC,SAAS,EAAE,YAAY,EAAE,EAAE,UAAU,GAAE,MAAe,GAAG,MAAM;CAyClF"}

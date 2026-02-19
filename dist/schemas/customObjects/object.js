@@ -1,85 +1,94 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ObjectSchema = void 0;
-const zod_1 = require("zod");
-exports.ObjectSchema = zod_1.z.object({
+import { z } from "zod";
+export const ObjectSchema = z.object({
     // --- 1. Core Object Configuration (Required from LLM) ---
-    label: zod_1.z
+    fullName: z
+        .string()
+        .min(1, "Full Name is required")
+        .regex(/__c$/, "Object Full Name must end with '__c'")
+        .describe("The API name of the object (e.g., 'Asset__c')."),
+    label: z
         .string()
         .min(1, "Label is required")
         .describe("The singular display name for the object (e.g., 'Kitchen Sink')."),
-    pluralLabel: zod_1.z
+    pluralLabel: z
         .string()
         .min(1, "Plural Label is required")
         .describe("The plural display name used for tabs and navigation (e.g., 'Kitchen Sinks')."),
-    description: zod_1.z
+    description: z
         .string()
         .optional()
         .describe("A detailed explanation of what this object tracks and why it was created."),
-    nameField: zod_1.z
+    nameField: z
         .object({
-        label: zod_1.z
+        label: z
             .string()
             .min(1, "Name Field Label is required")
             .describe("The label for the record's primary identifier field (e.g., 'Account Name')."),
-        type: zod_1.z
+        type: z
             .enum(["Text", "AutoNumber"])
             .default("Text")
             .describe("Determines if the Name field is a manually entered 'Text' string or a system-generated 'AutoNumber'."),
-        trackHistory: zod_1.z
+        trackHistory: z
             .boolean()
             .default(false)
             .describe("If true, Salesforce will log changes specifically for the Name field."),
     })
         .describe("Configuration for the standard Name field that every custom object must have."),
     // --- 2. Supporting Features (Defaults/UI Toggles) ---
-    deploymentStatus: zod_1.z
+    deploymentStatus: z
         .enum(["InDevelopment", "Deployed"])
         .default("Deployed")
         .describe("'InDevelopment' hides the object from end-users; 'Deployed' makes it available for use."),
-    allowInChatterGroups: zod_1.z
+    allowInChatterGroups: z
         .boolean()
         .default(true)
         .describe("Enables the ability to mention specific records of this object in Chatter groups."),
-    enableActivities: zod_1.z
+    enableActivities: z
         .boolean()
         .default(true)
         .describe("Allows users to associate Tasks and Events (Calendar) with records of this object."),
-    enableBulkApi: zod_1.z
+    enableBulkApi: z
         .boolean()
         .default(true)
         .describe("Allows the object to be processed by high-volume data tools like Data Loader."),
-    enableFeeds: zod_1.z
+    enableFeeds: z
         .boolean()
         .default(false)
         .describe("Enables Chatter Feed tracking, allowing users to 'Follow' records and see updates in a feed."),
-    enableHistory: zod_1.z
+    enableHistory: z
         .boolean()
         .default(true)
         .describe("Enables the 'Field History Tracking' feature for the object as a whole."),
-    enableLicensing: zod_1.z
+    enableLicensing: z
         .boolean()
         .default(false)
         .describe("Used for managed packages to restrict access based on user licenses."),
-    enableReports: zod_1.z
+    enableReports: z
         .boolean()
         .default(true)
         .describe("Allows this object to be used as a source in Salesforce Reports and Dashboards."),
-    enableSearch: zod_1.z
+    enableSearch: z
         .boolean()
         .default(true)
         .describe("Enables the global search bar to find records of this object."),
-    enableSharing: zod_1.z
+    enableSharing: z
         .boolean()
         .default(true)
         .describe("Determines if the object follows the Org-Wide Default sharing rules and manual sharing."),
-    enableStreamingApi: zod_1.z
+    enableStreamingApi: z
         .boolean()
         .default(true)
         .describe("Allows external applications to 'subscribe' to record changes via the Salesforce Streaming API."),
-    visibility: zod_1.z
+    visibility: z
         .string()
         .default("Public")
         .describe("Determines if the object is 'Public' (visible to all) or 'Protected' (hidden within a managed package)."),
+    sharingModel: z
+        .enum(["Read", "ReadWrite", "Private", "ControlledByParent"])
+        .default("ReadWrite")
+        .describe("Sets the internal organization-wide default (OWD) sharing access level for the object's records."),
+    externalSharingModel: z
+        .enum(["Read", "ReadWrite", "Private", "ControlledByParent"])
+        .default("ReadWrite")
+        .describe("Sets the external organization-wide default (OWD) sharing access level for guest or external users."),
 });
-//# sourceMappingURL=object.js.map

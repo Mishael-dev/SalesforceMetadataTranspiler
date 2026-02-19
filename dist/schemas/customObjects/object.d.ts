@@ -1,5 +1,6 @@
 import { z } from "zod";
 export declare const ObjectSchema: z.ZodObject<{
+    fullName: z.ZodString;
     label: z.ZodString;
     pluralLabel: z.ZodString;
     description: z.ZodOptional<z.ZodString>;
@@ -26,4 +27,17 @@ export declare const ObjectSchema: z.ZodObject<{
     enableSharing: z.ZodDefault<z.ZodBoolean>;
     enableStreamingApi: z.ZodDefault<z.ZodBoolean>;
     visibility: z.ZodDefault<z.ZodString>;
+    sharingModel: z.ZodDefault<z.ZodEnum<{
+        Read: "Read";
+        ReadWrite: "ReadWrite";
+        Private: "Private";
+        ControlledByParent: "ControlledByParent";
+    }>>;
+    externalSharingModel: z.ZodDefault<z.ZodEnum<{
+        Read: "Read";
+        ReadWrite: "ReadWrite";
+        Private: "Private";
+        ControlledByParent: "ControlledByParent";
+    }>>;
 }, z.core.$strip>;
+//# sourceMappingURL=object.d.ts.map

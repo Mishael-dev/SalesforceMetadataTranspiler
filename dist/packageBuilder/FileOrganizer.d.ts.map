@@ -1,0 +1,1 @@
+{"version":3,"file":"FileOrganizer.d.ts","sourceRoot":"","sources":["../../src/packageBuilder/FileOrganizer.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,uBAAuB,CAAC;AAGrD,qBAAa,aAAa;IAGtB,OAAO,CAAC,WAAW,CAOjB;IAEK,QAAQ,CAAC,SAAS,EAAE,YAAY,EAAE,GAAG,GAAG,CAAC,MAAM,EAAE,MAAM,CAAC;CA2BlE"}

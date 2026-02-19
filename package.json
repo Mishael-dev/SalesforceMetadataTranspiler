@@ -1,6 +1,9 @@
 {
-  "name": "salesforce-transpiler",
+  "name": "@Mishael-dev/sf-metadata-transpiler",
   "version": "1.0.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "Converts DB schema to Salesforce Metadata ZIP",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

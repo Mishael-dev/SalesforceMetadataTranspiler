@@ -19,9 +19,10 @@ export declare const FormulaFieldSchema: z.ZodObject<{
         BlankAsZero: "BlankAsZero";
     }>>;
     description: z.ZodOptional<z.ZodString>;
-    helpText: z.ZodOptional<z.ZodString>;
+    inlineHelpText: z.ZodOptional<z.ZodString>;
     externalId: z.ZodDefault<z.ZodBoolean>;
     required: z.ZodDefault<z.ZodBoolean>;
     unique: z.ZodDefault<z.ZodBoolean>;
     trackHistory: z.ZodDefault<z.ZodBoolean>;
 }, z.core.$strip>;
+//# sourceMappingURL=formula.d.ts.map
