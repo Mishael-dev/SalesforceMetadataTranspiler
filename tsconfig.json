@@ -3,7 +3,7 @@
     "outDir": "./dist",             // compiled JS + .d.ts goes here
     "rootDir": "./src",
     "target": "ES2020",
-    "module": "ESNext",           // or "ESNext" if you want ESM support
+    "module": "CommonJS",           // or "ESNext" if you want ESM support
     "strict": true,
     "esModuleInterop": true,        // helps with default imports
     "moduleResolution": "node",

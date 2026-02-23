@@ -1,0 +1,34 @@
+import { MetadataItem } from "../../types";
+import { ValidationContext } from "../../types";
+import { ValidationError } from "../../../../types/validationResult";
+
+export function checkMasterDetailReferences(
+  data: MetadataItem[],
+  context: ValidationContext,
+): ValidationError[] {
+  const errors: ValidationError[] = [];
+
+  for (const item of data) {
+    if (item?.type !== "CustomObject") continue;
+    if (!item.fields) continue;
+
+    for (const field of item.fields) {
+      if (field.type !== "MasterDetail") continue;
+      if (!field.referenceTo) continue;
+
+      const isValid =
+        context.customObjects.has(field.referenceTo) ||
+        context.standardObjects.has(field.referenceTo);
+
+      if (!isValid) {
+        errors.push({
+          level: 2,
+          message: `Master-Detail field "${field.fullName}" references "${field.referenceTo}" which does not exist in schema or standard objects`,
+          path: [item.fullName, "fields", field.fullName, "referenceTo"],
+        });
+      }
+    }
+  }
+
+  return errors;
+}

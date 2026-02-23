@@ -25,6 +25,7 @@ class SalesforceMetadataTranspiler {
   }
 
   async transpile(input: unknown): Promise<GeneratedXmlArray> {
+    console.log("the input passed=================", input);
     const validationResult: ValidationResult = this.validator.validate(input);
 
     if (!validationResult.normalizedData) {

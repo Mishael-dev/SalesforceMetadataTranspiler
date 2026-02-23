@@ -13,7 +13,7 @@ export type ValidationResult<T = unknown> =
   | {
       success: true;
       errors: ValidationError[];
-      normalizedData: MetadataEnvelope;
+      normalizedData: T;
     }
   | {
       success: false;
