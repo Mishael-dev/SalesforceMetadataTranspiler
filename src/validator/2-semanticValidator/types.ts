@@ -1,7 +1,8 @@
 import { ValidationError } from "../../types/validationResult";
+import { CustomObject } from "../../xmlGenerator/types";
 
 export type ValidationRule = (
-  data: MetadataItem[],
+  data: CustomObject[],
   context: ValidationContext,
 ) => ValidationError[];
 

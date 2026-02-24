@@ -1,9 +1,9 @@
-import { MetadataItem } from "../../types";
+import { CustomObject } from "../../../../xmlGenerator/types";
 import { ValidationContext } from "../../types";
 import { ValidationError } from "../../../../types/validationResult";
 
 export function checkLookupReferences(
-  data: MetadataItem[],
+  data: CustomObject[],
   context: ValidationContext,
 ): ValidationError[] {
   const errors: ValidationError[] = [];

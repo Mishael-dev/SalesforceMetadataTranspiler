@@ -18,8 +18,8 @@ const TabMetadataSchema = z.object({
 
 const MetadataItemSchema = z.discriminatedUnion("type", [
   CustomObjectMetadataSchema,
-  PermissionSetMetadataSchema,
-  TabMetadataSchema,
+  // PermissionSetMetadataSchema,
+  // TabMetadataSchema,
 ]);
 
 export const MetadataEnvelopeSchema = z.array(MetadataItemSchema);

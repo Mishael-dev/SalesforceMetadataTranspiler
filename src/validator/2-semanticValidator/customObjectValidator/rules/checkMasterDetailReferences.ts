@@ -1,9 +1,10 @@
-import { MetadataItem } from "../../types";
+
 import { ValidationContext } from "../../types";
 import { ValidationError } from "../../../../types/validationResult";
+import { CustomObject } from "../../../../xmlGenerator/types";
 
 export function checkMasterDetailReferences(
-  data: MetadataItem[],
+  data: CustomObject[],
   context: ValidationContext,
 ): ValidationError[] {
   const errors: ValidationError[] = [];

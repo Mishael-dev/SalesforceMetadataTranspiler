@@ -78,7 +78,7 @@ export interface SummaryField extends BaseJsonField {
   summaryOperation: "count" | "sum" | "min" | "max" | "avg";
 }
 
-export type JsonField = FormulaField | TextField | NumberField | SummaryField;
+export type JsonField = FormulaField | TextField | NumberField | SummaryField | LookupField | MasterDetailField | PicklistField | MultiselectPicklistField;
 
 export interface NameField {
   label: string;

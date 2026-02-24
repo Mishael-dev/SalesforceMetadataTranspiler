@@ -1,6 +1,8 @@
 import { MetadataValidator } from "./types";
 import { MetadataItem } from "./types";
 import { ValidationError } from "../../types/validationResult";
+import { ValidationResult } from "../../types/validationResult";
+import { MetadataEnvelope } from "../../schemas";
 
 export class SemanticValidator {
   private validators: MetadataValidator[] = [];
@@ -13,26 +15,27 @@ export class SemanticValidator {
     // Type guard
     if (!Array.isArray(schema)) {
       return {
-        success: false,
-        errors: [{
-          level: 1,
-          message: "Schema must be an array of metadata items",
-          path: [],
-        }],
-        normalizedData: schema,
+        success: false as false,
+        errors: [
+          {
+            level: 1 as const,
+            message: "Schema must be an array of metadata items",
+            path: [],
+          },
+        ],
       };
     }
 
-    const items = schema as MetadataItem[];
+    const items = schema as MetadataEnvelope;
     const errors: ValidationError[] = [];
 
     // Validate each item
     for (const item of items) {
       const validator = this.validators.find((v) => v.supports(item));
-      
+
       if (!validator) {
         errors.push({
-          level: 1,
+          level: 1 as const,
           message: `No validator found for item type: ${item.type}`,
           path: [item.fullName || "<unknown>"],
         });
@@ -43,10 +46,16 @@ export class SemanticValidator {
       const itemErrors = validator.validate(item, items);
       errors.push(...itemErrors);
     }
+    if (errors.length > 0) {
+      return {
+        success: false as false,
+        errors
+      };
+    }
 
     return {
-      success: errors.length === 0,
-      errors,
+      success: true as true,
+      errors: [],
       normalizedData: items,
     };
   }

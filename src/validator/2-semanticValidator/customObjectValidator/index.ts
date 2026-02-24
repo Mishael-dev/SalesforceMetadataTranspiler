@@ -1,8 +1,8 @@
 import { ValidationError } from "../../../types/validationResult";
 import { ValidationRule } from "../types";
 import { MetadataValidator } from "../types";
-import { MetadataItem } from "../types";
 import { ValidationContext } from "../types";
+import { CustomObject } from "../../../xmlGenerator/types";
 
 const STANDARD_OBJECTS = new Set([
   "Account",
@@ -24,11 +24,11 @@ export class CustomObjectSemanticValidator implements MetadataValidator {
     this.rules.push(rule);
   }
 
-  supports(item: MetadataItem): boolean {
+  supports(item: CustomObject): boolean {
     return item.type === "CustomObject";
   }
 
-  public validate(item: MetadataItem, allItems: MetadataItem[]): ValidationError[] {
+  public validate(item: CustomObject, allItems: CustomObject[]): ValidationError[] {
     // Build validation context from all items
     const context = this.buildContext(allItems);
 
@@ -39,7 +39,7 @@ export class CustomObjectSemanticValidator implements MetadataValidator {
     return errors;
   }
 
-  private buildContext(allItems: MetadataItem[]): ValidationContext {
+  private buildContext(allItems: CustomObject[]): ValidationContext {
     const customObjects = new Set<string>();
 
     for (const item of allItems) {

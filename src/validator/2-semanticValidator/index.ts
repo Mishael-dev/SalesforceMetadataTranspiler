@@ -3,7 +3,7 @@ import { SemanticValidator } from "./semantic.validator";
 import { checkLookupReferences } from "./customObjectValidator/rules/checkLookupReferences";
 import { checkMasterDetailReferences } from "./customObjectValidator/rules/checkMasterDetailReferences";
 import { checkRollupSummaryReferences } from "./customObjectValidator/rules/checkRollupSummaryReferences";
-import { checkFormulaFieldReferences } from "./temp";
+import { checkFormulaFieldReferences } from "./customObjectValidator/rules/checkFormulaFieldReferences";
 import { CustomObjectSemanticValidator } from "./customObjectValidator";
 
 export function createSemanticValidator(): SemanticValidator {

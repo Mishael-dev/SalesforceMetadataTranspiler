@@ -19,24 +19,32 @@ export const RollupSummaryFieldSchema = z
     trackTrending: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
-    // Level 2 / cross-field refinements
+    const sumParts = data.summarizedField.split(".");
+    const fkParts = data.summaryForeignKey.split(".");
 
-    // Example: summarizedField and summaryForeignKey must reference valid child object fields
-    if (!data.summarizedField.includes(".")) {
+    // 1. Basic format checks
+    if (sumParts.length !== 2) {
       ctx.addIssue({
         code: "custom",
         path: ["summarizedField"],
-        message:
-          "summarizedField must include the object and field name, e.g., 'Child__c.Field__c'",
+        message: "summarizedField must be in 'Object.Field' format",
       });
     }
 
-    if (!data.summaryForeignKey.includes(".")) {
+    if (fkParts.length !== 2) {
       ctx.addIssue({
         code: "custom",
         path: ["summaryForeignKey"],
-        message:
-          "summaryForeignKey must include the object and field name, e.g., 'Child__c.Lookup__c'",
+        message: "summaryForeignKey must be in 'Object.Field' format",
+      });
+    }
+
+    // 2. THE CRITICAL RULE: Object names (index 0) must match
+    if (sumParts[0] && fkParts[0] && sumParts[0] !== fkParts[0]) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["summaryForeignKey"],
+        message: `The child object in summaryForeignKey ("${fkParts[0]}") must match the child object in summarizedField ("${sumParts[0]}")`,
       });
     }
   });
