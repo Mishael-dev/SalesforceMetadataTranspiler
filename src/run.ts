@@ -13,7 +13,7 @@ const transpiler = new SalesforceMetadataTranspiler(transpilerConfig);
 async function transpileSchema() {
   const generatedXml = await transpiler.transpile(jsonMetadata);
 
-  console.log(generatedXml);
+  console.log("generatedxml", generatedXml);
 
   // const builder = new PackageBuilder({
   //   outputDirectory: "./package.zip",

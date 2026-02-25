@@ -13,8 +13,8 @@ export function createSemanticValidator(): SemanticValidator {
   const customObjectValidator = new CustomObjectSemanticValidator();
   customObjectValidator.addRule(checkLookupReferences);
   customObjectValidator.addRule(checkMasterDetailReferences);
-  customObjectValidator.addRule(checkRollupSummaryReferences);
-  customObjectValidator.addRule(checkFormulaFieldReferences);
+  // customObjectValidator.addRule(checkRollupSummaryReferences); === incomplete
+  // customObjectValidator.addRule(checkFormulaFieldReferences);  === incomplete
   
   semanticValidator.registerValidator(customObjectValidator);
   

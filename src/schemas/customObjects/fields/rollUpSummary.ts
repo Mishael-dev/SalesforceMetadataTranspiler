@@ -19,6 +19,12 @@ export const RollupSummaryFieldSchema = z
     trackTrending: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
+     ctx.addIssue({
+      code: "custom",
+      path: ["type"],
+      message: "Rollup Summary fields are not yet supported in v1.", // Prevents further refinement logic from running
+    });
+
     const sumParts = data.summarizedField.split(".");
     const fkParts = data.summaryForeignKey.split(".");
 

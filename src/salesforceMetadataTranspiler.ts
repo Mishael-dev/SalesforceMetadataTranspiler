@@ -4,6 +4,7 @@ import { TranspilerConfig } from "./types/transpilerConfig";
 import { createXmlGenerator } from "./xmlGenerator";
 import { MetadataEnvelope } from "./schemas";
 import { GeneratedXml } from "./xmlGenerator/types";
+import { ValidationError } from "./types/validationResult";
 
 type XmlGeneratorInstance = ReturnType<typeof createXmlGenerator>;
 type GeneratedXmlArray = GeneratedXml[];
@@ -24,11 +25,11 @@ class SalesforceMetadataTranspiler {
     this.xmlGenerator = createXmlGenerator();
   }
 
-  async transpile(input: unknown): Promise<GeneratedXmlArray> {
+  async transpile(input: unknown): Promise<GeneratedXmlArray | Promise<ValidationResult>> {
     const validationResult: ValidationResult<MetadataEnvelope> = this.validator.validate(input);
 
-    if (!validationResult.normalizedData) {
-      return [];
+    if (!validationResult.success) {
+      return validationResult
     }
 
     const outputs = validationResult.normalizedData?.flatMap((item) => {

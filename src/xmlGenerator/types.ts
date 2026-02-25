@@ -110,6 +110,9 @@ export interface CustomObject {
   fields?: JsonField[];
 }
 
+export type validationContext = CustomObject[]
+
+
 // ============================================================================
 // CORE INTERFACES
 // ============================================================================

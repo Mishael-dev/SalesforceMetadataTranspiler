@@ -36,13 +36,6 @@ export function checkRollupSummaryReferences(
         const [foreignKeyObject] = field.summaryForeignKey.split(".");
         const [foreignKeyField] = field.summaryForeignKey.split(".").slice(1);
 
-        // const targetObj = data.find((d) => d.fullName === foreignKeyObject);
-        // console.log("targetObj==========", targetObj);
-        console.log("fkobj=======", foreignKeyObject);
-        console.log("fkfield=======", foreignKeyField);
-
-        data.forEach((d) => console.log("data obj=====", d.fullName));
-
         const objectExists =
           context.customObjects.has(foreignKeyObject) ||
           context.standardObjects.has(foreignKeyObject);
