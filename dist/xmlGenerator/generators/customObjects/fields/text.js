@@ -1,6 +1,9 @@
-import { BaseFieldGenerator } from "../../baseFieldGenerator";
-import { XmlUtils } from "../../../utils/xmlUtils";
-export class TextFieldGenerator extends BaseFieldGenerator {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TextFieldGenerator = void 0;
+const baseFieldGenerator_1 = require("../../baseFieldGenerator");
+const xmlUtils_1 = require("../../../utils/xmlUtils");
+class TextFieldGenerator extends baseFieldGenerator_1.BaseFieldGenerator {
     constructor() {
         super(...arguments);
         this.priority = 20;
@@ -13,7 +16,7 @@ export class TextFieldGenerator extends BaseFieldGenerator {
         const parentFullName = context.parentFullName;
         const tags = [
             ...this.buildSharedTags(field),
-            XmlUtils.xmlTag("length", field.length || 255),
+            xmlUtils_1.XmlUtils.xmlTag("length", field.length || 255),
         ];
         const xml = this.buildXmlFromTags(tags);
         return {
@@ -24,3 +27,4 @@ export class TextFieldGenerator extends BaseFieldGenerator {
         };
     }
 }
+exports.TextFieldGenerator = TextFieldGenerator;

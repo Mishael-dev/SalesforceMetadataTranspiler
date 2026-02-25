@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MasterDetailFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Master-Detail field: master_detail__c
  *
@@ -6,50 +9,50 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 validations are not handled here (platform constraints, pre-flight checks)
  */
-export const MasterDetailFieldSchema = z
+exports.MasterDetailFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" }) // Level 1
         .regex(/^[a-zA-Z0-9_]+__c$/, {
         message: "fullName must be a valid Salesforce API name ending with __c",
     })
         .describe("API name of the custom field, must end with __c"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" }) // Level 1
         .describe("Field label displayed in the UI"),
-    type: z
+    type: zod_1.z
         .literal("MasterDetail")
         .describe("Field type, must be exactly MasterDetail"), // Level 1
-    referenceTo: z
+    referenceTo: zod_1.z
         .string()
         .nonempty({ message: "referenceTo is required" }) // Level 1
         .describe("API name of the parent object this field references"),
-    relationshipLabel: z
+    relationshipLabel: zod_1.z
         .string()
         .nonempty({ message: "relationshipLabel is required" }) // Level 1
         .describe("Label for the related list in the UI"),
-    relationshipName: z
+    relationshipName: zod_1.z
         .string()
         .nonempty({ message: "relationshipName is required" }) // Level 1
         .describe("API name used for child-to-parent traversal"),
-    relationshipOrder: z
+    relationshipOrder: zod_1.z
         .number()
         .int({ message: "relationshipOrder must be an integer" })
         .nonnegative({ message: "relationshipOrder must be non-negative" }) // Level 1
         .describe("Display order for roll-up summaries"),
-    reparentableMasterDetail: z
+    reparentableMasterDetail: zod_1.z
         .boolean()
         .describe("Whether child records can be reassigned to a different parent"), // Level 1
-    writeRequiresMasterRead: z
+    writeRequiresMasterRead: zod_1.z
         .boolean()
         .describe("Whether write access to child requires read access to master"), // Level 1
-    description: z
+    description: zod_1.z
         .string()
         .optional()
         .describe("Optional description of the field"),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),

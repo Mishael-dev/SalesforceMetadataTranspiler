@@ -8,7 +8,7 @@ export declare class StructuralValidator {
     } | {
         success: true;
         errors: never[];
-        normalizedData: ({
+        normalizedData: {
             fullName: string;
             label: string;
             pluralLabel: string;
@@ -41,6 +41,19 @@ export declare class StructuralValidator {
                 description?: string | undefined;
                 inlineHelpText?: string | undefined;
                 startingNumber?: number | undefined;
+            } | {
+                type: "Formula";
+                label: string;
+                fullName: string;
+                returnType: "Checkbox" | "Currency" | "Date" | "DateTime" | "Number" | "Percent" | "Text" | "Time";
+                formula: string;
+                blankOption: "BlankAsBlank" | "BlankAsZero";
+                externalId: boolean;
+                required: boolean;
+                unique: boolean;
+                trackHistory: boolean;
+                description?: string | undefined;
+                inlineHelpText?: string | undefined;
             } | {
                 type: "Checkbox";
                 fullName: string;
@@ -235,19 +248,6 @@ export declare class StructuralValidator {
                 trackHistory?: boolean | undefined;
                 trackTrending?: boolean | undefined;
             } | {
-                type: "Formula";
-                label: string;
-                fullName: string;
-                returnType: "Checkbox" | "Currency" | "Date" | "DateTime" | "Number" | "Percent" | "Text" | "Time";
-                formula: string;
-                blankOption: "BlankAsBlank" | "BlankAsZero";
-                externalId: boolean;
-                required: boolean;
-                unique: boolean;
-                trackHistory: boolean;
-                description?: string | undefined;
-                inlineHelpText?: string | undefined;
-            } | {
                 type: "Date";
                 fullName: string;
                 label: string;
@@ -276,13 +276,7 @@ export declare class StructuralValidator {
             })[];
             type: "CustomObject";
             description?: string | undefined;
-        } | {
-            type: "PermissionSet";
-            metaData: any[];
-        } | {
-            type: "Tab";
-            metaData: any[];
-        })[];
+        }[];
     };
 }
 //# sourceMappingURL=structural.validator.d.ts.map

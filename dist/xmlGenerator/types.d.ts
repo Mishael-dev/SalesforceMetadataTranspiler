@@ -66,7 +66,7 @@ export interface SummaryField extends BaseJsonField {
     summaryForeignKey: string;
     summaryOperation: "count" | "sum" | "min" | "max" | "avg";
 }
-export type JsonField = FormulaField | TextField | NumberField | SummaryField;
+export type JsonField = FormulaField | TextField | NumberField | SummaryField | LookupField | MasterDetailField | PicklistField | MultiselectPicklistField;
 export interface NameField {
     label: string;
     type: string;
@@ -95,6 +95,7 @@ export interface CustomObject {
     externalSharingModel?: string;
     fields?: JsonField[];
 }
+export type validationContext = CustomObject[];
 export interface GeneratedXml {
     metadataType: string;
     fullName: string;

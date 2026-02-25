@@ -1,14 +1,17 @@
-import { XMLParser, XMLBuilder } from 'fast-xml-parser';
-export class MetadataMerger {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MetadataMerger = void 0;
+const fast_xml_parser_1 = require("fast-xml-parser");
+class MetadataMerger {
     constructor() {
-        this.parser = new XMLParser({
+        this.parser = new fast_xml_parser_1.XMLParser({
             ignoreAttributes: false,
             preserveOrder: false,
             allowBooleanAttributes: true,
             // Optimization: Don't parse the XML declaration <?xml...?>
             ignoreDeclaration: true,
         });
-        this.builder = new XMLBuilder({
+        this.builder = new fast_xml_parser_1.XMLBuilder({
             ignoreAttributes: false,
             format: true,
             suppressEmptyNode: false,
@@ -67,3 +70,4 @@ export class MetadataMerger {
         return finalArtifacts;
     }
 }
+exports.MetadataMerger = MetadataMerger;

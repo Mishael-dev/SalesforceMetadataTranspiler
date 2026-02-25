@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PhoneFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Phone field: phone__c
  *
@@ -6,24 +9,24 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 (platform constraints, pre-flight checks) are not enforced here.
  */
-export const PhoneFieldSchema = z
+exports.PhoneFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" })
         .regex(/^[a-zA-Z0-9_]+__c$/, { message: "fullName must end with __c" })
         .describe("API name of the custom field"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" })
         .describe("Field label displayed in the UI"),
-    type: z.literal("Phone").describe("Field type, must be exactly Phone"),
-    required: z.boolean().describe("Whether the field is required"),
-    description: z
+    type: zod_1.z.literal("Phone").describe("Field type, must be exactly Phone"),
+    required: zod_1.z.boolean().describe("Whether the field is required"),
+    description: zod_1.z
         .string()
         .optional()
         .describe("Optional description of the field"),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),

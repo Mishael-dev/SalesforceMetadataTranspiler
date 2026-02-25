@@ -311,12 +311,6 @@ export declare const MetadataEnvelopeSchema: z.ZodArray<z.ZodDiscriminatedUnion<
         trackTrending: z.ZodOptional<z.ZodBoolean>;
     }, z.core.$strip>], "type">>;
     type: z.ZodLiteral<"CustomObject">;
-}, z.core.$strip>, z.ZodObject<{
-    type: z.ZodLiteral<"PermissionSet">;
-    metaData: z.ZodArray<z.ZodAny>;
-}, z.core.$strip>, z.ZodObject<{
-    type: z.ZodLiteral<"Tab">;
-    metaData: z.ZodArray<z.ZodAny>;
 }, z.core.$strip>], "type">>;
 export type MetadataEnvelope = z.infer<typeof MetadataEnvelopeSchema>;
 //# sourceMappingURL=index.d.ts.map

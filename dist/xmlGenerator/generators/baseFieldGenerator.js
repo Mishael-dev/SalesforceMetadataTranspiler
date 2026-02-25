@@ -1,17 +1,20 @@
-import { XmlUtils } from "../utils/xmlUtils";
-export class BaseFieldGenerator {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseFieldGenerator = void 0;
+const xmlUtils_1 = require("../utils/xmlUtils");
+class BaseFieldGenerator {
     buildSharedTags(field) {
         return [
-            XmlUtils.xmlTag("fullName", field.fullName),
-            XmlUtils.xmlTag("label", field.label),
-            XmlUtils.xmlTag("type", field.type),
-            XmlUtils.xmlTag("description", field.description),
-            XmlUtils.xmlTag("inlineHelpText", field.helpText),
-            XmlUtils.xmlTag("trackHistory", field.trackHistory),
-            XmlUtils.xmlTag("trackTrending", field.trackTrending),
-            XmlUtils.xmlTag("externalId", field.externalId),
-            XmlUtils.xmlTag("required", field.required),
-            XmlUtils.xmlTag("unique", field.unique),
+            xmlUtils_1.XmlUtils.xmlTag("fullName", field.fullName),
+            xmlUtils_1.XmlUtils.xmlTag("label", field.label),
+            xmlUtils_1.XmlUtils.xmlTag("type", field.type),
+            xmlUtils_1.XmlUtils.xmlTag("description", field.description),
+            xmlUtils_1.XmlUtils.xmlTag("inlineHelpText", field.helpText),
+            xmlUtils_1.XmlUtils.xmlTag("trackHistory", field.trackHistory),
+            xmlUtils_1.XmlUtils.xmlTag("trackTrending", field.trackTrending),
+            xmlUtils_1.XmlUtils.xmlTag("externalId", field.externalId),
+            xmlUtils_1.XmlUtils.xmlTag("required", field.required),
+            xmlUtils_1.XmlUtils.xmlTag("unique", field.unique),
         ];
     }
     buildFullName(fieldName, context) {
@@ -21,6 +24,7 @@ export class BaseFieldGenerator {
     }
     buildXmlFromTags(tags) {
         const body = tags.filter((tag) => tag !== "").join("\n    ");
-        return XmlUtils.buildFieldXmlDocument("fields", `${body}`);
+        return xmlUtils_1.XmlUtils.buildFieldXmlDocument("fields", `${body}`);
     }
 }
+exports.BaseFieldGenerator = BaseFieldGenerator;

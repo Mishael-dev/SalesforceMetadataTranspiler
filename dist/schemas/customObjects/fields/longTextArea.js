@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LongTextAreaFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce LongTextArea field: text_area_long__c
  *
@@ -6,38 +9,38 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 (platform constraints, pre-flight checks) are not enforced here.
  */
-export const LongTextAreaFieldSchema = z
+exports.LongTextAreaFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" })
         .regex(/^[a-zA-Z0-9_]+__c$/, { message: "fullName must end with __c" })
         .describe("API name of the custom field"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" })
         .describe("Field label displayed in the UI"),
-    type: z
+    type: zod_1.z
         .literal("LongTextArea")
         .describe("Field type, must be exactly LongTextArea"),
-    length: z
+    length: zod_1.z
         .number()
         .int()
         .min(1, { message: "length must be at least 1" })
         .max(32768, { message: "length cannot exceed 32768" })
         .describe("Maximum number of characters"),
-    visibleLines: z
+    visibleLines: zod_1.z
         .number()
         .int()
         .min(1, { message: "visibleLines must be at least 1" })
         .describe("Number of visible lines in UI"),
-    description: z.string().optional().describe("Optional field description"),
-    inlineHelpText: z
+    description: zod_1.z.string().optional().describe("Optional field description"),
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),
-    trackHistory: z.boolean().optional().describe("Track field history"),
-    trackTrending: z.boolean().optional().describe("Track trending changes"),
+    trackHistory: zod_1.z.boolean().optional().describe("Track field history"),
+    trackTrending: zod_1.z.boolean().optional().describe("Track trending changes"),
 })
     .superRefine((data, ctx) => {
     // Level 2: Logical Validation

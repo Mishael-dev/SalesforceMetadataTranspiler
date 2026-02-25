@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PicklistFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Picklist field: picklist__c
  *
@@ -6,42 +9,42 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 (platform constraints, pre-flight checks) are not enforced here.
  */
-export const PicklistFieldSchema = z
+exports.PicklistFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" })
         .regex(/^[a-zA-Z0-9_]+__c$/, { message: "fullName must end with __c" })
         .describe("API name of the custom field"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" })
         .describe("Field label displayed in the UI"),
-    type: z
+    type: zod_1.z
         .literal("Picklist")
         .describe("Field type, must be exactly Picklist"),
-    required: z.boolean().describe("Whether the field is required"),
-    description: z
+    required: zod_1.z.boolean().describe("Whether the field is required"),
+    description: zod_1.z
         .string()
         .optional()
         .describe("Optional description of the field"),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),
-    valueSet: z
+    valueSet: zod_1.z
         .object({
-        restricted: z
+        restricted: zod_1.z
             .boolean()
             .describe("If true, only allowed values are selectable"),
-        values: z
-            .array(z.object({
-            fullName: z
+        values: zod_1.z
+            .array(zod_1.z.object({
+            fullName: zod_1.z
                 .string()
                 .nonempty()
                 .describe("Picklist value API name"),
-            label: z.string().nonempty().describe("Picklist value label"),
-            default: z
+            label: zod_1.z.string().nonempty().describe("Picklist value label"),
+            default: zod_1.z
                 .boolean()
                 .describe("If true, this is the default value"),
         }))

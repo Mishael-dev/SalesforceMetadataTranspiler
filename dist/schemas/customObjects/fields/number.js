@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NumberFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Number field: number__c
  *
@@ -6,41 +9,41 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 validations are not handled here (platform constraints, pre-flight checks)
  */
-export const NumberFieldSchema = z
+exports.NumberFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" }) // Level 1
         .regex(/^[a-zA-Z0-9_]+__c$/, {
         message: "fullName must be a valid Salesforce API name ending with __c",
     })
         .describe("API name of the custom field, must end with __c"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" }) // Level 1
         .describe("Field label displayed in the UI"),
-    type: z.literal("Number").describe("Field type, must be exactly Number"), // Level 1
-    precision: z
+    type: zod_1.z.literal("Number").describe("Field type, must be exactly Number"), // Level 1
+    precision: zod_1.z
         .number()
         .int({ message: "precision must be an integer" })
         .min(1, { message: "precision must be at least 1" }) // Level 2
         .max(18, { message: "precision cannot exceed 18" }) // Level 2
         .describe("Total number of digits allowed in the field"),
-    scale: z
+    scale: zod_1.z
         .number()
         .int({ message: "scale must be an integer" })
         .min(0, { message: "scale cannot be negative" }) // Level 2
         .describe("Number of digits to the right of the decimal point"),
-    required: z.boolean().describe("Whether the field is required"), // Level 1
-    unique: z.boolean().describe("Whether the field enforces uniqueness"), // Level 1
-    isAIPredictionField: z
+    required: zod_1.z.boolean().describe("Whether the field is required"), // Level 1
+    unique: zod_1.z.boolean().describe("Whether the field enforces uniqueness"), // Level 1
+    isAIPredictionField: zod_1.z
         .boolean()
         .describe("Whether this number field is used for AI prediction"), // Level 1
-    description: z
+    description: zod_1.z
         .string()
         .optional()
         .describe("Optional description of the field"),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),

@@ -1,5 +1,8 @@
-import { XmlUtils } from "../../utils/xmlUtils";
-export class CustomObjectGenerator {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CustomObjectGenerator = void 0;
+const xmlUtils_1 = require("../../utils/xmlUtils");
+class CustomObjectGenerator {
     constructor() {
         this.priority = 10;
     }
@@ -13,7 +16,7 @@ export class CustomObjectGenerator {
     }
     generate(obj, context) {
         const body = this.buildBody(obj);
-        const xml = XmlUtils.buildXmlDocument("CustomObject", "http://soap.sforce.com/2006/04/metadata", `    ${body}`);
+        const xml = xmlUtils_1.XmlUtils.buildXmlDocument("CustomObject", "http://soap.sforce.com/2006/04/metadata", `    ${body}`);
         return {
             metadataType: "CustomObject",
             fullName: obj.fullName,
@@ -22,32 +25,33 @@ export class CustomObjectGenerator {
     }
     buildBody(obj) {
         const tags = [
-            XmlUtils.xmlTag("deploymentStatus", obj.deploymentStatus),
-            XmlUtils.xmlTag("description", obj.description),
-            XmlUtils.xmlTag("label", obj.label),
-            XmlUtils.xmlTag("pluralLabel", obj.pluralLabel),
+            xmlUtils_1.XmlUtils.xmlTag("deploymentStatus", obj.deploymentStatus),
+            xmlUtils_1.XmlUtils.xmlTag("description", obj.description),
+            xmlUtils_1.XmlUtils.xmlTag("label", obj.label),
+            xmlUtils_1.XmlUtils.xmlTag("pluralLabel", obj.pluralLabel),
             this.buildNameField(obj.nameField),
-            XmlUtils.xmlTag("allowInChatterGroups", obj.allowInChatterGroups),
-            XmlUtils.xmlTag("enableActivities", obj.enableActivities),
-            XmlUtils.xmlTag("enableBulkApi", obj.enableBulkApi),
-            XmlUtils.xmlTag("enableFeeds", obj.enableFeeds),
-            XmlUtils.xmlTag("enableHistory", obj.enableHistory),
-            XmlUtils.xmlTag("enableLicensing", obj.enableLicensing),
-            XmlUtils.xmlTag("enableReports", obj.enableReports),
-            XmlUtils.xmlTag("enableSearch", obj.enableSearch),
-            XmlUtils.xmlTag("enableSharing", obj.enableSharing),
-            XmlUtils.xmlTag("enableStreamingApi", obj.enableStreamingApi),
-            XmlUtils.xmlTag("visibility", obj.visibility),
-            XmlUtils.xmlTag("externalSharingModel", obj.externalSharingModel),
-            XmlUtils.xmlTag("sharingModel", obj.sharingModel),
+            xmlUtils_1.XmlUtils.xmlTag("allowInChatterGroups", obj.allowInChatterGroups),
+            xmlUtils_1.XmlUtils.xmlTag("enableActivities", obj.enableActivities),
+            xmlUtils_1.XmlUtils.xmlTag("enableBulkApi", obj.enableBulkApi),
+            xmlUtils_1.XmlUtils.xmlTag("enableFeeds", obj.enableFeeds),
+            xmlUtils_1.XmlUtils.xmlTag("enableHistory", obj.enableHistory),
+            xmlUtils_1.XmlUtils.xmlTag("enableLicensing", obj.enableLicensing),
+            xmlUtils_1.XmlUtils.xmlTag("enableReports", obj.enableReports),
+            xmlUtils_1.XmlUtils.xmlTag("enableSearch", obj.enableSearch),
+            xmlUtils_1.XmlUtils.xmlTag("enableSharing", obj.enableSharing),
+            xmlUtils_1.XmlUtils.xmlTag("enableStreamingApi", obj.enableStreamingApi),
+            xmlUtils_1.XmlUtils.xmlTag("visibility", obj.visibility),
+            xmlUtils_1.XmlUtils.xmlTag("externalSharingModel", obj.externalSharingModel),
+            xmlUtils_1.XmlUtils.xmlTag("sharingModel", obj.sharingModel),
         ];
         return tags.filter((tag) => tag !== "").join("\n    ");
     }
     buildNameField(nameField) {
         return `<nameField>
-        <label>${XmlUtils.escapeXml(nameField.label)}</label>
+        <label>${xmlUtils_1.XmlUtils.escapeXml(nameField.label)}</label>
         <type>${nameField.type}</type>
         <trackHistory>${nameField.trackHistory}</trackHistory>
     </nameField>`;
     }
 }
+exports.CustomObjectGenerator = CustomObjectGenerator;

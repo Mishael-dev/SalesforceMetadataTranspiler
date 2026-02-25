@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LookupFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Lookup field: Lookup_Field__c
  *
@@ -6,44 +9,44 @@ import { z } from "zod";
  * Level 2: Logical Validation (cross-field dependencies)
  * Level 3 & 4 validations are not handled here (platform constraints, pre-flight checks)
  */
-export const LookupFieldSchema = z
+exports.LookupFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" }) // Level 1
         .regex(/^[a-zA-Z0-9_]+__c$/, {
         message: "fullName must be a valid Salesforce API name ending with __c",
     })
         .describe("API name of the custom field, must end with __c"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" }) // Level 1
         .describe("Field label displayed in the UI"),
-    type: z.literal("Lookup").describe("Field type, must be exactly Lookup"), // Level 1
-    referenceTo: z
+    type: zod_1.z.literal("Lookup").describe("Field type, must be exactly Lookup"), // Level 1
+    referenceTo: zod_1.z
         .string()
         .nonempty({ message: "referenceTo is required" }) // Level 1
         .describe("API name of the parent object this field references"),
-    relationshipName: z
+    relationshipName: zod_1.z
         .string()
         .nonempty({ message: "relationshipName is required" }) // Level 1
         .describe("API name used for child-to-parent traversal"),
-    relationshipLabel: z
+    relationshipLabel: zod_1.z
         .string()
         .nonempty({ message: "relationshipLabel is required" }) // Level 1
         .describe("Label for the related list in the UI"),
-    deleteConstraint: z
+    deleteConstraint: zod_1.z
         .enum(["SetNull", "Restrict"])
         .describe("Behavior when parent record is deleted"), // Level 1 + Level 2
-    description: z
+    description: zod_1.z
         .string()
         .optional()
         .describe("Optional description of the field"),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),
-    required: z.boolean().describe("Whether the field is mandatory"), // Level 1
+    required: zod_1.z.boolean().describe("Whether the field is mandatory"), // Level 1
 })
     .superRefine((data, ctx) => {
     /**

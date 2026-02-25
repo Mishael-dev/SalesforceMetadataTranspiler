@@ -1,6 +1,9 @@
-import { BaseFieldGenerator } from "../../baseFieldGenerator";
-import { XmlUtils } from "../../../utils/xmlUtils";
-export class FormulaFieldGenerator extends BaseFieldGenerator {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormulaFieldGenerator = void 0;
+const baseFieldGenerator_1 = require("../../baseFieldGenerator");
+const xmlUtils_1 = require("../../../utils/xmlUtils");
+class FormulaFieldGenerator extends baseFieldGenerator_1.BaseFieldGenerator {
     constructor() {
         super(...arguments);
         this.priority = 20;
@@ -17,9 +20,9 @@ export class FormulaFieldGenerator extends BaseFieldGenerator {
         const filteredSharedTags = sharedTags.filter((tag) => !tag.includes("<type>"));
         const tags = [
             ...filteredSharedTags,
-            XmlUtils.xmlTag("formula", field.formula),
-            XmlUtils.xmlTag("type", field.returnType),
-            XmlUtils.xmlTag("formulaTreatBlanksAs", field.blankOption),
+            xmlUtils_1.XmlUtils.xmlTag("formula", field.formula),
+            xmlUtils_1.XmlUtils.xmlTag("type", field.returnType),
+            xmlUtils_1.XmlUtils.xmlTag("formulaTreatBlanksAs", field.blankOption),
         ];
         const xml = this.buildXmlFromTags(tags);
         return {
@@ -30,3 +33,4 @@ export class FormulaFieldGenerator extends BaseFieldGenerator {
         };
     }
 }
+exports.FormulaFieldGenerator = FormulaFieldGenerator;

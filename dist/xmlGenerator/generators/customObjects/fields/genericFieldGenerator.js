@@ -1,6 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GenericFieldGenerator = void 0;
 // GenericFieldGenerator.ts
-import { BaseFieldGenerator } from "../../baseFieldGenerator";
-import { XmlUtils } from "../../../utils/xmlUtils";
+const baseFieldGenerator_1 = require("../../baseFieldGenerator");
+const xmlUtils_1 = require("../../../utils/xmlUtils");
 const SIMPLE_FIELD_TYPES = [
     "AutoNumber",
     "Checkbox",
@@ -20,7 +23,7 @@ const SIMPLE_FIELD_TYPES = [
     "Time",
     "Url"
 ];
-export class GenericFieldGenerator extends BaseFieldGenerator {
+class GenericFieldGenerator extends baseFieldGenerator_1.BaseFieldGenerator {
     constructor() {
         super(...arguments);
         this.priority = 30; // Lower priority than specialized generators
@@ -52,9 +55,10 @@ export class GenericFieldGenerator extends BaseFieldGenerator {
         ]);
         for (const [key, value] of Object.entries(field)) {
             if (!excludedKeys.has(key) && value !== undefined && value !== null) {
-                tags.push(XmlUtils.xmlTag(key, value));
+                tags.push(xmlUtils_1.XmlUtils.xmlTag(key, value));
             }
         }
         return tags;
     }
 }
+exports.GenericFieldGenerator = GenericFieldGenerator;

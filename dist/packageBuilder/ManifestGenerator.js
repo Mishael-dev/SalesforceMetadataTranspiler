@@ -1,4 +1,7 @@
-export class ManifestGenerator {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ManifestGenerator = void 0;
+class ManifestGenerator {
     constructor() {
         // Map of metadataType to the required <name> in package.xml
         this.typeMapping = {
@@ -44,3 +47,4 @@ export class ManifestGenerator {
         return xml;
     }
 }
+exports.ManifestGenerator = ManifestGenerator;

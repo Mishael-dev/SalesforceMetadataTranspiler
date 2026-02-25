@@ -1,4 +1,7 @@
-export class XmlGenerator {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.XmlGenerator = void 0;
+class XmlGenerator {
     constructor() {
         this.generators = [];
     }
@@ -31,3 +34,4 @@ export class XmlGenerator {
         }
     }
 }
+exports.XmlGenerator = XmlGenerator;

@@ -1,4 +1,7 @@
-import { z } from 'zod';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GeoLocationFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Location (Geolocation) field: geolocation__c
  *
@@ -6,34 +9,34 @@ import { z } from 'zod';
  * Level 2: Logical Validation
  * Level 3 & 4 validations are not handled here (platform constraints, pre-flight checks)
  */
-export const GeoLocationFieldSchema = z.object({
-    fullName: z
+exports.GeoLocationFieldSchema = zod_1.z.object({
+    fullName: zod_1.z
         .string()
         .nonempty({ message: 'fullName is required' }) // Level 1
         .regex(/^[a-zA-Z0-9_]+__c$/, { message: 'fullName must be a valid Salesforce API name ending with __c' })
         .describe('API name of the custom field, must end with __c'),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: 'label is required' }) // Level 1
         .describe('Field label displayed in the UI'),
-    type: z
+    type: zod_1.z
         .literal('Location')
         .describe('Field type, must be exactly Location'), // Level 1
-    description: z
+    description: zod_1.z
         .string()
         .optional()
         .describe('Optional description of the field'),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe('Inline help text displayed in the UI'),
-    required: z
+    required: zod_1.z
         .boolean()
         .describe('Whether the field is mandatory'), // Level 1
-    displayLocationInDecimal: z
+    displayLocationInDecimal: zod_1.z
         .boolean()
         .describe('Whether the location is stored in decimal degrees'), // Level 1
-    scale: z
+    scale: zod_1.z
         .number()
         .int({ message: 'scale must be an integer' }) // Level 1
         .nonnegative({ message: 'scale must be non-negative' }) // Level 1

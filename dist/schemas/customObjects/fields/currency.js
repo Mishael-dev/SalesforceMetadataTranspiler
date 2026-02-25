@@ -1,4 +1,7 @@
-import { z } from 'zod';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CurrencyFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Currency field: currency__c
  *
@@ -6,31 +9,31 @@ import { z } from 'zod';
  * Level 2: Logical Validation
  * Level 3 & 4 rules (platform & pre-flight) are NOT handled in this schema
  */
-export const CurrencyFieldSchema = z.object({
-    type: z.literal('Currency').describe('Field type must be exactly "Currency"'), // Level 1
-    fullName: z
+exports.CurrencyFieldSchema = zod_1.z.object({
+    type: zod_1.z.literal('Currency').describe('Field type must be exactly "Currency"'), // Level 1
+    fullName: zod_1.z
         .string()
         .nonempty()
         .regex(/^[a-zA-Z_][a-zA-Z0-9_]*__c$/, 'fullName must be a valid Salesforce custom field API name ending with __c') // Level 1
         .describe('API name of the custom field, must end with __c'),
-    label: z.string().nonempty().describe('The display label for the currency field'), // Level 1
-    defaultValue: z
+    label: zod_1.z.string().nonempty().describe('The display label for the currency field'), // Level 1
+    defaultValue: zod_1.z
         .number()
         .optional()
         .describe('The default numeric value for the currency field, if required'), // Level 1
-    description: z.string().optional().describe('Optional description of the field'), // Level 1
-    inlineHelpText: z.string().optional().describe('Optional inline help text for the field'), // Level 1
-    precision: z
+    description: zod_1.z.string().optional().describe('Optional description of the field'), // Level 1
+    inlineHelpText: zod_1.z.string().optional().describe('Optional inline help text for the field'), // Level 1
+    precision: zod_1.z
         .number()
         .int()
         .positive()
         .describe('Total number of digits allowed for the currency value'), // Level 1
-    scale: z
+    scale: zod_1.z
         .number()
         .int()
         .min(0)
         .describe('Number of digits allowed after the decimal point'), // Level 1
-    required: z.boolean().describe('Indicates whether the field is required'), // Level 1
+    required: zod_1.z.boolean().describe('Indicates whether the field is required'), // Level 1
 }).superRefine((data, ctx) => {
     /**
      * Level 2: Logical Validation

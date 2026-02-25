@@ -1,20 +1,23 @@
-import { z } from "zod";
-import { CustomObjectsSchema } from "./customObjects";
-const CustomObjectMetadataSchema = z.object({
-    type: z.literal("CustomObject"),
-    ...CustomObjectsSchema.shape,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MetadataEnvelopeSchema = void 0;
+const zod_1 = require("zod");
+const customObjects_1 = require("./customObjects");
+const CustomObjectMetadataSchema = zod_1.z.object({
+    type: zod_1.z.literal("CustomObject"),
+    ...customObjects_1.CustomObjectsSchema.shape,
 });
-const PermissionSetMetadataSchema = z.object({
-    type: z.literal("PermissionSet"),
-    metaData: z.array(z.any()),
+const PermissionSetMetadataSchema = zod_1.z.object({
+    type: zod_1.z.literal("PermissionSet"),
+    metaData: zod_1.z.array(zod_1.z.any()),
 });
-const TabMetadataSchema = z.object({
-    type: z.literal("Tab"),
-    metaData: z.array(z.any()),
+const TabMetadataSchema = zod_1.z.object({
+    type: zod_1.z.literal("Tab"),
+    metaData: zod_1.z.array(zod_1.z.any()),
 });
-const MetadataItemSchema = z.discriminatedUnion("type", [
+const MetadataItemSchema = zod_1.z.discriminatedUnion("type", [
     CustomObjectMetadataSchema,
-    PermissionSetMetadataSchema,
-    TabMetadataSchema,
+    // PermissionSetMetadataSchema,
+    // TabMetadataSchema,
 ]);
-export const MetadataEnvelopeSchema = z.array(MetadataItemSchema);
+exports.MetadataEnvelopeSchema = zod_1.z.array(MetadataItemSchema);

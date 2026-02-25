@@ -1,5 +1,8 @@
-import { Validator } from "./validator";
-import { createXmlGenerator } from "./xmlGenerator";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SalesforceMetadataTranspiler = void 0;
+const validator_1 = require("./validator");
+const xmlGenerator_1 = require("./xmlGenerator");
 class SalesforceMetadataTranspiler {
     constructor(config) {
         this.config = {
@@ -7,13 +10,13 @@ class SalesforceMetadataTranspiler {
             validateOnly: false,
             ...config,
         };
-        this.validator = new Validator();
-        this.xmlGenerator = createXmlGenerator();
+        this.validator = new validator_1.Validator();
+        this.xmlGenerator = (0, xmlGenerator_1.createXmlGenerator)();
     }
     async transpile(input) {
         const validationResult = this.validator.validate(input);
-        if (!validationResult.normalizedData) {
-            return [];
+        if (!validationResult.success) {
+            return validationResult;
         }
         const outputs = validationResult.normalizedData?.flatMap((item) => {
             const result = this.xmlGenerator.generate(item);
@@ -22,4 +25,4 @@ class SalesforceMetadataTranspiler {
         return outputs;
     }
 }
-export { SalesforceMetadataTranspiler };
+exports.SalesforceMetadataTranspiler = SalesforceMetadataTranspiler;

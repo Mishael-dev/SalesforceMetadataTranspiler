@@ -1,42 +1,45 @@
-import { z } from 'zod';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CheckboxFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Checkbox Field Schema
  * fullName: checkbox__c
  * label: checkbox
  */
-export const CheckboxFieldSchema = z
+exports.CheckboxFieldSchema = zod_1.z
     .object({
     /**
      * Level 1: Structural Validation
      */
-    type: z
+    type: zod_1.z
         .literal('Checkbox')
         .describe('Declares the Salesforce field type and must be exactly "Checkbox".'),
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty()
         .endsWith('__c')
         .describe('API name of the field. Must be non-empty, unique on the object, and end with "__c".'),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty()
         .describe('Human-readable label displayed in the Salesforce UI.'),
-    description: z
+    description: zod_1.z
         .string()
         .optional()
         .describe('Optional description for admins and developers.'),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe('Optional contextual help text shown to end users.'),
-    defaultValue: z
+    defaultValue: zod_1.z
         .boolean()
         .describe('Default boolean value applied when a new record is created for this Checkbox field.'),
-    trackHistory: z
+    trackHistory: zod_1.z
         .boolean()
         .optional()
         .describe('Controls whether changes to this Checkbox field are tracked in Field History.'),
-    trackTrending: z
+    trackTrending: zod_1.z
         .boolean()
         .optional()
         .describe('Controls whether the field is tracked for trend analytics. Typically system-managed.'),

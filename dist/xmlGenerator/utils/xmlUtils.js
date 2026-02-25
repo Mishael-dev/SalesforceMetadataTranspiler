@@ -1,4 +1,7 @@
-export class XmlUtils {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.XmlUtils = void 0;
+class XmlUtils {
     static escapeXml(value) {
         return value
             .replace(/&/g, "&amp;")
@@ -25,3 +28,4 @@ ${body}
 </${rootTag}>`;
     }
 }
+exports.XmlUtils = XmlUtils;

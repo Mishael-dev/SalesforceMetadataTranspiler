@@ -1,4 +1,7 @@
-import { z } from 'zod';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AutoNumberFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * AutoNumber Field Schema
  *
@@ -10,48 +13,48 @@ import { z } from 'zod';
  * fullName: Asset_ID__c
  * label: Asset ID
  */
-export const AutoNumberFieldSchema = z
+exports.AutoNumberFieldSchema = zod_1.z
     .object({
     /**
      * Level 1: Structural Validation
      */
-    type: z
+    type: zod_1.z
         .literal('AutoNumber')
         .describe('Salesforce field type. Must be exactly AutoNumber.'),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty()
         .describe('User-facing label for the AutoNumber field.'),
-    fullName: z
+    fullName: zod_1.z
         .string()
         .regex(/^[A-Za-z][A-Za-z0-9_]*__c$/, {
         message: 'fullName must be a valid Salesforce custom field API name ending with __c',
     })
         .describe('API name of the AutoNumber field. Must end with __c and follow Salesforce naming rules.'),
-    displayFormat: z
+    displayFormat: zod_1.z
         .string()
         .nonempty()
         .describe('Format pattern used to generate AutoNumber values (e.g., ASSET-{YYYY}-{0000}).'),
-    description: z
+    description: zod_1.z
         .string()
         .optional()
         .describe('Optional description explaining the purpose of the AutoNumber field.'),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe('Optional help text displayed to users in the Salesforce UI.'),
-    startingNumber: z
+    startingNumber: zod_1.z
         .number()
         .optional()
         .describe('Starting numeric value for the AutoNumber sequence.'),
     /**
      * Supporting UI-controlled fields
      */
-    externalId: z
+    externalId: zod_1.z
         .boolean()
         .default(false)
         .describe('Indicates whether the field is marked as an External ID. Must always be false for AutoNumber fields.'),
-    trackHistory: z
+    trackHistory: zod_1.z
         .boolean()
         .default(false)
         .describe('Controls whether changes to this field are tracked in field history.'),

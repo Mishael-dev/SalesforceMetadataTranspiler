@@ -1,14 +1,17 @@
-import { MetadataMerger } from './MetadataMerger';
-import { FileOrganizer } from './FileOrganizer';
-import { ManifestGenerator } from './ManifestGenerator';
-import { OutputHandler } from './OutputHandler';
-export class PackageBuilder {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PackageBuilder = void 0;
+const MetadataMerger_1 = require("./MetadataMerger");
+const FileOrganizer_1 = require("./FileOrganizer");
+const ManifestGenerator_1 = require("./ManifestGenerator");
+const OutputHandler_1 = require("./OutputHandler");
+class PackageBuilder {
     constructor(options) {
         this.options = options;
-        this.merger = new MetadataMerger();
-        this.organizer = new FileOrganizer();
-        this.manifestGen = new ManifestGenerator();
-        this.outputHandler = new OutputHandler();
+        this.merger = new MetadataMerger_1.MetadataMerger();
+        this.organizer = new FileOrganizer_1.FileOrganizer();
+        this.manifestGen = new ManifestGenerator_1.ManifestGenerator();
+        this.outputHandler = new OutputHandler_1.OutputHandler();
     }
     async build(artifacts) {
         try {
@@ -37,3 +40,4 @@ export class PackageBuilder {
         }
     }
 }
+exports.PackageBuilder = PackageBuilder;

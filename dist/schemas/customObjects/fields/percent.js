@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PercentFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Percent field: percent__c
  *
@@ -6,35 +9,35 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 validations (platform constraints, pre-flight) are not enforced here.
  */
-export const PercentFieldSchema = z
+exports.PercentFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" })
         .regex(/^[a-zA-Z0-9_]+__c$/, { message: "fullName must end with __c" })
         .describe("API name of the custom field"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" })
         .describe("Field label displayed in the UI"),
-    type: z.literal("Percent").describe("Field type, must be exactly Percent"),
-    precision: z
+    type: zod_1.z.literal("Percent").describe("Field type, must be exactly Percent"),
+    precision: zod_1.z
         .number()
         .int({ message: "precision must be an integer" })
         .min(1, { message: "precision must be at least 1" })
         .max(18, { message: "precision cannot exceed 18" })
         .describe("Total number of digits allowed"),
-    scale: z
+    scale: zod_1.z
         .number()
         .int({ message: "scale must be an integer" })
         .min(0, { message: "scale cannot be negative" })
         .describe("Number of digits to the right of the decimal point"),
-    required: z.boolean().describe("Whether the field is required"),
-    description: z
+    required: zod_1.z.boolean().describe("Whether the field is required"),
+    description: zod_1.z
         .string()
         .optional()
         .describe("Optional description of the field"),
-    inlineHelpText: z
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),

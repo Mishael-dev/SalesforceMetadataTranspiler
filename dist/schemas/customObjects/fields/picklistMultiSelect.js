@@ -1,4 +1,7 @@
-import { z } from "zod";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MultiSelectPicklistFieldSchema = void 0;
+const zod_1 = require("zod");
 /**
  * Zod schema for Salesforce Multiselect Picklist field: picklist_multi_select__c
  *
@@ -6,40 +9,40 @@ import { z } from "zod";
  * Level 2: Logical Validation
  * Level 3 & 4 (platform constraints, pre-flight checks) are not enforced here.
  */
-export const MultiSelectPicklistFieldSchema = z
+exports.MultiSelectPicklistFieldSchema = zod_1.z
     .object({
-    fullName: z
+    fullName: zod_1.z
         .string()
         .nonempty({ message: "fullName is required" })
         .regex(/^[a-zA-Z0-9_]+__c$/, { message: "fullName must end with __c" })
         .describe("API name of the custom field"),
-    label: z
+    label: zod_1.z
         .string()
         .nonempty({ message: "label is required" })
         .describe("Field label displayed in the UI"),
-    type: z
+    type: zod_1.z
         .literal("MultiselectPicklist")
         .describe("Field type, must be exactly MultiselectPicklist"),
-    required: z.boolean().describe("Whether the field is required"),
-    description: z.string().optional().describe("Optional field description"),
-    inlineHelpText: z
+    required: zod_1.z.boolean().describe("Whether the field is required"),
+    description: zod_1.z.string().optional().describe("Optional field description"),
+    inlineHelpText: zod_1.z
         .string()
         .optional()
         .describe("Inline help text displayed in the UI"),
-    valueSet: z
+    valueSet: zod_1.z
         .object({
-        restricted: z
+        restricted: zod_1.z
             .boolean()
             .describe("If true, only allowed values are selectable"),
-        sorted: z.boolean().describe("If true, values are displayed sorted"),
-        values: z
-            .array(z.object({
-            fullName: z
+        sorted: zod_1.z.boolean().describe("If true, values are displayed sorted"),
+        values: zod_1.z
+            .array(zod_1.z.object({
+            fullName: zod_1.z
                 .string()
                 .nonempty()
                 .describe("Picklist value API name"),
-            label: z.string().nonempty().describe("Picklist value label"),
-            default: z
+            label: zod_1.z.string().nonempty().describe("Picklist value label"),
+            default: zod_1.z
                 .boolean()
                 .describe("If true, this is the default value"),
         }))
@@ -48,8 +51,8 @@ export const MultiSelectPicklistFieldSchema = z
         }),
     })
         .describe("Definition of multiselect picklist values"),
-    trackHistory: z.boolean().optional().describe("Track field history"),
-    visibleLines: z
+    trackHistory: zod_1.z.boolean().optional().describe("Track field history"),
+    visibleLines: zod_1.z
         .number()
         .optional()
         .describe("Number of visible lines in UI"),

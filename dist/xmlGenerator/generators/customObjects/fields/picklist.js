@@ -1,7 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PicklistFieldGenerator = void 0;
 // PicklistFieldGenerator.ts
-import { BaseFieldGenerator } from "../../baseFieldGenerator";
-import { XmlUtils } from "../../../utils/xmlUtils";
-export class PicklistFieldGenerator extends BaseFieldGenerator {
+const baseFieldGenerator_1 = require("../../baseFieldGenerator");
+const xmlUtils_1 = require("../../../utils/xmlUtils");
+class PicklistFieldGenerator extends baseFieldGenerator_1.BaseFieldGenerator {
     constructor() {
         super(...arguments);
         this.priority = 20;
@@ -28,9 +31,9 @@ export class PicklistFieldGenerator extends BaseFieldGenerator {
     buildValueSet(valueSet) {
         const values = valueSet.values.map((v) => `
         <value>
-            <fullName>${XmlUtils.escapeXml(v.fullName)}</fullName>
+            <fullName>${xmlUtils_1.XmlUtils.escapeXml(v.fullName)}</fullName>
             <default>${v.default}</default>
-            <label>${XmlUtils.escapeXml(v.label)}</label>
+            <label>${xmlUtils_1.XmlUtils.escapeXml(v.label)}</label>
         </value>`).join('');
         return `<valueSet>
         <restricted>${valueSet.restricted}</restricted>
@@ -40,3 +43,4 @@ export class PicklistFieldGenerator extends BaseFieldGenerator {
     </valueSet>`;
     }
 }
+exports.PicklistFieldGenerator = PicklistFieldGenerator;

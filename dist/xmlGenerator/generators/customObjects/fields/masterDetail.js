@@ -1,7 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MasterDetailFieldGenerator = void 0;
 // MasterDetailFieldGenerator.ts
-import { BaseFieldGenerator } from "../../baseFieldGenerator";
-import { XmlUtils } from "../../../utils/xmlUtils";
-export class MasterDetailFieldGenerator extends BaseFieldGenerator {
+const baseFieldGenerator_1 = require("../../baseFieldGenerator");
+const xmlUtils_1 = require("../../../utils/xmlUtils");
+class MasterDetailFieldGenerator extends baseFieldGenerator_1.BaseFieldGenerator {
     constructor() {
         super(...arguments);
         this.priority = 20;
@@ -14,12 +17,12 @@ export class MasterDetailFieldGenerator extends BaseFieldGenerator {
         const parentFullName = context.parentFullName;
         const tags = [
             ...this.buildSharedTags(field),
-            XmlUtils.xmlTag("referenceTo", field.referenceTo),
-            XmlUtils.xmlTag("relationshipLabel", field.relationshipLabel),
-            XmlUtils.xmlTag("relationshipName", field.relationshipName),
-            XmlUtils.xmlTag("relationshipOrder", field.relationshipOrder),
-            XmlUtils.xmlTag("reparentableMasterDetail", field.reparentableMasterDetail),
-            XmlUtils.xmlTag("writeRequiresMasterRead", field.writeRequiresMasterRead),
+            xmlUtils_1.XmlUtils.xmlTag("referenceTo", field.referenceTo),
+            xmlUtils_1.XmlUtils.xmlTag("relationshipLabel", field.relationshipLabel),
+            xmlUtils_1.XmlUtils.xmlTag("relationshipName", field.relationshipName),
+            xmlUtils_1.XmlUtils.xmlTag("relationshipOrder", field.relationshipOrder),
+            xmlUtils_1.XmlUtils.xmlTag("reparentableMasterDetail", field.reparentableMasterDetail),
+            xmlUtils_1.XmlUtils.xmlTag("writeRequiresMasterRead", field.writeRequiresMasterRead),
         ];
         const xml = this.buildXmlFromTags(tags);
         return {
@@ -30,3 +33,4 @@ export class MasterDetailFieldGenerator extends BaseFieldGenerator {
         };
     }
 }
+exports.MasterDetailFieldGenerator = MasterDetailFieldGenerator;
