@@ -24,6 +24,7 @@ When generating JSON:
 - Property names are case-sensitive
 - Do NOT add properties not defined in this guide
 - Labels and help texts must be clear and descriptive
+- If the object has a masterdetail field the sharing model has to be "ControlledByParent"
 
 ---
 

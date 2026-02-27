@@ -11,24 +11,28 @@ export const transpilerConfig = {
 const transpiler = new SalesforceMetadataTranspiler(transpilerConfig);
 
 async function transpileSchema() {
-  const generatedXml = await transpiler.transpile(jsonMetadata);
+  const transpileResult = await transpiler.transpile(jsonMetadata);
 
-  console.log("generatedxml", generatedXml);
+  console.log("Transpile Result", transpileResult);
 
-  // const builder = new PackageBuilder({
-  //   outputDirectory: "./package.zip",
-  //   outputMode: "zip",
-  // });
+  if (!transpileResult.success) {
+    console.error("Errors Occured at transpilation", transpileResult.errors);
+  }
 
-  // const result = await builder.build(generatedXml);
+  const builder = new PackageBuilder({
+    outputDirectory: "./package.zip",
+    outputMode: "zip",
+  });
 
-  // if (result.success) {
-  //   console.log("Package built successfully!");
-  // } else {
-  //   console.error("Failed to build package:", result.errors);
-  // }
+  if (transpileResult.success) {
+    const result = await builder.build(transpileResult.data);
+
+    if (result.success) {
+      console.log("Package built successfully!");
+    } else {
+      console.error("Failed to build package:", result.errors);
+    }
+  }
 }
 
 transpileSchema();
-
-

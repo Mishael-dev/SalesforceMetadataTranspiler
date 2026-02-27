@@ -1,0 +1,1 @@
+//if the object has a masterdetail field then sharing model must be controlled by parent

@@ -5,6 +5,8 @@ import { createXmlGenerator } from "./xmlGenerator";
 import { MetadataEnvelope } from "./schemas";
 import { GeneratedXml } from "./xmlGenerator/types";
 import { ValidationError } from "./types/validationResult";
+import { TranspileResult } from "./types/transpileResult/transpileResult";
+import { success } from "zod";
 
 type XmlGeneratorInstance = ReturnType<typeof createXmlGenerator>;
 type GeneratedXmlArray = GeneratedXml[];
@@ -25,11 +27,12 @@ class SalesforceMetadataTranspiler {
     this.xmlGenerator = createXmlGenerator();
   }
 
-  async transpile(input: unknown): Promise<GeneratedXmlArray | Promise<ValidationResult>> {
-    const validationResult: ValidationResult<MetadataEnvelope> = this.validator.validate(input);
+  async transpile(input: unknown): Promise<TranspileResult> {
+    const validationResult: ValidationResult<MetadataEnvelope> =
+      this.validator.validate(input);
 
     if (!validationResult.success) {
-      return validationResult
+      return { success: false, errors: validationResult.errors,  };
     }
 
     const outputs = validationResult.normalizedData?.flatMap((item) => {
@@ -37,7 +40,12 @@ class SalesforceMetadataTranspiler {
       return result;
     });
 
-    return outputs;
+    const result = {
+      success: true as const,
+      data: outputs,
+    };
+
+    return result;
   }
 }
 
